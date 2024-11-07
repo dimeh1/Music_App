@@ -1,6 +1,10 @@
 page administrateur : ajout/suppressions de musiques, d'artistes, supression d'utilisateurs, (Matys)
 
 supprimer playlist
+liker musique
+ajout musique à la playlist
+liker les albums (l'album se transforme en playlist)
+barre de recherche à rendre fonctionnelle
 page de paramètre
 page playlist (mehdi)
 css white/dark mode
