@@ -1,5 +1,6 @@
 package com.example.music_app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -18,18 +20,18 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
 	private String username;
 	
 	@Email
+	@NotBlank
 	private String email;
 	
+	@NotBlank
 	private String password;
 
 	@OneToMany(mappedBy = "user")
-	private List<Playlist> playlists;
-	
-	@OneToMany(mappedBy = "user")
-	private List<Like> likes;
+	private List<Playlist> playlists = new ArrayList<Playlist>();
 
 	
 	
@@ -73,12 +75,5 @@ public class User {
 		this.playlists = playlists;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
-	}
-
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
-	}
 	
 }
