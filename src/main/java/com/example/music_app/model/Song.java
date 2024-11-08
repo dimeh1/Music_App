@@ -3,6 +3,7 @@ package com.example.music_app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,12 +14,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name ="songs")
-public class Song<Genre> {
+public class Song {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
@@ -45,9 +47,11 @@ public class Song<Genre> {
 	@ManyToMany(mappedBy = "songs")
 	private List<Playlist> playlists;
 	
+	@OneToMany(mappedBy ="song")
+	private List<Like> likes;
 	
 	@Enumerated(EnumType.STRING)
-	private Genre Genre;
+	private Genre genre;
 	
 	private String chemin_audio;
 	
@@ -109,12 +113,20 @@ public class Song<Genre> {
 		this.playlists = playlists;
 	}
 
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+
 	public Genre getGenre() {
-		return Genre;
+		return genre;
 	}
 
 	public void setGenre(Genre genre) {
-		Genre = genre;
+		this.genre = genre;
 	}
 
 	public String getChemin_audio() {
