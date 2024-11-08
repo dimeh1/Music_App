@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name ="songs")
-public class Song {
+public class Song<Genre> {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
