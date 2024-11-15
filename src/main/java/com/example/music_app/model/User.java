@@ -32,8 +32,8 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Playlist> playlists = new ArrayList<Playlist>();
-
 	
+	private Status status;
 	
 	public Long getId() {
 		return id;
