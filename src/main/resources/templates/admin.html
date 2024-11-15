@@ -61,6 +61,8 @@
         	</ul>
     	</div>
     	
+    	
+    		<!-- Formulaire de l'album -->
     		<div id="artistModal" class="modal">
     			<div class="modal-content">
         	<span class="close" onclick="closeModal()">&times;</span>
@@ -72,6 +74,34 @@
         		</form>
     			</div>
 			</div>
+			
+			<!-- Formulaire de l'album -->
+			<div id="albumModal" class="modal">
+    			<div class="modal-content">
+        	<span class="close" onclick="closeModal()">&times;</span>
+        		<h2>Ajouter un Album</h2>
+        		<form id="createAlbumForm" action="/ajouterAlbum" method="post">
+            		<label for="name_album">Nom de l'album :</label>
+    	<input type="text" id="name_album" name="name_album" placeholder="Nom de l'album" required />
+
+    	<label for="name_artists">Noms des artistes (séparés par des virgules) :</label>
+    	<input type="text" id="name_artists" name="name_artists" placeholder="Artiste 1, Artiste 2, ..." required />
+    	
+    	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
+    	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
+    	
+    	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
+    	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
+    	
+    	<label for="cover_image_url">Lien vers la pochette :</label>
+  		<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required />
+
+    	<button type="submit">Ajouter l'album</button>
+		</form>
+    		</div>
+			</div>
+			
+    	
     	
 			
     			<!-- Message si l'utilisateur n'est pas connecté -->
