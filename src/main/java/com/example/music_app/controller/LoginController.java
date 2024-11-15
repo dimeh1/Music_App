@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.music_app.model.Playlist;
+import com.example.music_app.model.Status;
 import com.example.music_app.model.User;
 import com.example.music_app.repository.PlaylistRepository;
 import com.example.music_app.repository.UserRepository;
@@ -76,6 +77,7 @@ public class LoginController {
 				user.setUsername(username);
 				user.setEmail(email);
 				user.setPassword(this.hashPassword(password));
+				user.setStatus(Status.GUEST);
 				
 				Playlist like = new Playlist();
 				like.setName("Like");

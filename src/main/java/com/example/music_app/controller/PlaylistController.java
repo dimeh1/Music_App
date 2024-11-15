@@ -32,4 +32,27 @@ public class PlaylistController {
 		
 		return "redirect:/";
 	}
+	
+	public String updatePlaylist(Model model, @RequestParam("playlistId") Long playlistId, @RequestParam("name") String name, HttpSession session) {
+		if (session.getAttribute("loggedIn") != null && (boolean) session.getAttribute("loggedIn")) {
+			User user = (User) session.getAttribute("user");
+			
+			Playlist playlist = playlistRepository.findByIdAndUser(playlistId, user);
+			
+			if (playlist != null) {
+				playlist.setName(name);
+				
+				playlistRepository.save(playlist);
+				model.addAttribute("success","Le nom de la playlist à été modifié avec succès.");
+			}
+			else {
+				model.addAttribute("error", "Playlist non trouvé.");
+			}
+			
+		}
+		else {
+			model.addAttribute("error", "Vous devez être connecté pour modifier le nom d'un playlist.");
+		}
+		return "playlist";
+	}
 }
