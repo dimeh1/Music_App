@@ -9,6 +9,8 @@ import com.example.music_app.model.Song;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long>{
+
 	Song findByTitre(String titre);
+
 	Optional<Song> findById(Long id);
 }

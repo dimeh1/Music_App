@@ -3,6 +3,7 @@ package com.example.music_app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,6 +32,7 @@ public class Song {
 	
 	private int duree;
 	
+	@CreationTimestamp
 	private LocalDate date_sortie;
 	
 	@ManyToOne

@@ -7,5 +7,5 @@ import com.example.music_app.model.Artist;
 
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long>{
-
+	Artist findByName (String name);
 }
