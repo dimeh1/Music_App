@@ -210,9 +210,9 @@ header {
 .sidebar li {
     margin: 10px 0;
     border: 1px solid white;
-    padding: 30px;
-    border-radius: 10px;
-    cursor: pointer;
+	padding: 30px;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 .sidebar li:hover {
@@ -227,10 +227,61 @@ header {
     overflow-y:scroll;
 }
 
-.artists, .albums, .songs {
-    margin-top: 15px;
-    display: flex; 
-    flex-wrap: wrap;
+.main-head {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.main-head p {
+    font-size: 16px;
+    color: #b3b3b3;
+    margin: 0;
+}
+
+.main-head h1 {
+    font-size: 28px;
+    margin: 5px 0;
+    color: #1db954;
+}
+
+.main-head h4 {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #b3b3b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #282828;
+}
+
+thead th {
+    text-align: left;
+    padding: 10px;
+    font-weight: normal;
+    color: #b3b3b3;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+tbody tr {
+    border-bottom: 1px solid #404040; /* Ligne de séparation entre les chansons */
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #333333; /* Survol */
+}
+
+tbody td {
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 footer {

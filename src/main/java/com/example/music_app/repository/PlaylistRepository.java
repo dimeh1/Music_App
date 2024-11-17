@@ -10,5 +10,5 @@ import com.example.music_app.model.User;
 
 @Repository
 public interface PlaylistRepository extends JpaRepository<Playlist, Long>{
-	Playlist findByIdAndUser(Long id, User user);
+	Optional<Playlist> findByIdAndUser(Long id, User user);
 }

@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="/css/home.css">
+    <title>Playlist</title>
+    <link rel="stylesheet" href="/css/playlist.css">
 </head>
 <body>
     <header>
@@ -67,7 +67,7 @@
                 			th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
                 			<span th:text="${playlist.name}">Playlist</span>
            				</li>
-           			</ul>
+        			</ul>
     			</div>
     			<!-- Message si l'utilisateur n'est pas connecté -->
     			<div th:if="${session.loggedIn == null || !session.loggedIn}">
@@ -79,22 +79,29 @@
         
         <div class="content-container">
             <main class="main-content">
-                <section class="content-area">
-                    <h2>Artists</h2>
-                    <div class="artists">
-                        <!-- Liste des artistes -->
-                    </div>
-
-                    <h2>Albums</h2>
-                    <div class="albums">
-                        <!-- Liste des albums -->
-                    </div>
-
-                    <h2>Songs</h2>
-                    <div class="songs">
-                        <!-- Liste des musiques -->
-                    </div>
-                </section>
+            	<div class="main-head">
+            		<p>Playlist</p>
+            		<h1 th:text="${playlist.name}">Playlist name</h1>
+            		<h4 th:text="${user.username}">User</h4>
+            	</div>
+            	<table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Album</th>
+                            <th>Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="song, stat : ${songs}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td th:text="${song.titre}">Titre</td>
+                            <td th:text="${song.album.nom}">Album</td>
+                            <td th:text="${song.duree}">Durée</td>
+                        </tr>
+                    </tbody>
+                </table>
             </main>
         </div>
     </div>
