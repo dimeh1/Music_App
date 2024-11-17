@@ -66,6 +66,10 @@
                 			class="playlist-item"
                 			th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
                 			<span th:text="${playlist.name}">Playlist</span>
+                            <form action="/delete-playlist" method="post">
+                                <input type="hidden" name="playlistId" th:value="${playlist.id}">
+                                <button type="submit">Delete</button>
+                            </form>
            				</li>
            			</ul>
     			</div>
