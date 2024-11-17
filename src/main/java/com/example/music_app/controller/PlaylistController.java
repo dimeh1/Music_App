@@ -32,4 +32,16 @@ public class PlaylistController {
 		
 		return "redirect:/";
 	}
+	@PostMapping("/delete-playlist")
+	public String deletePlaylist(@RequestParam("id") Long id, HttpSession session) {
+		if (session.getAttribute("loggedIn") != null && (boolean) session.getAttribute("loggedIn")) {
+			User user = (User) session.getAttribute("user");
+			Playlist playlist = playlistRepository.findById(id).orElse(null);
+			if (playlist != null && playlist.getUser().getId().equals(user.getId())) {
+				playlistRepository.delete(playlist);
+			}
+		}
+		return "redirect:/";
+	}
+
 }

@@ -64,7 +64,11 @@
         			<ul th:if="${playlists != null && !playlists.isEmpty()}">
             			<li th:each="playlist : ${playlists}">
                     		<span th:text="${playlist.name}">Playlist</span>
-            			</li>
+                            <form action="/delete-playlist" method="post">
+                                <input type="hidden" name="id" th:value="${playlist.id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </li>
         			</ul>
     			</div>
     			<!-- Message si l'utilisateur n'est pas connecté -->
