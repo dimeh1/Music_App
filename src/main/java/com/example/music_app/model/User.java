@@ -3,14 +3,10 @@ package com.example.music_app.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -33,8 +29,20 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Playlist> playlists = new ArrayList<Playlist>();
 
-	
-	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	@OneToOne
+	private Settings settings;
+
 	public Long getId() {
 		return id;
 	}
@@ -75,5 +83,11 @@ public class User {
 		this.playlists = playlists;
 	}
 
-	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 }

@@ -3,6 +3,8 @@ package com.example.music_app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +25,18 @@ public class Album {
 	
 	private String nom;
 	
-	
-	private LocalDate date_sortie;
+	private String image;
+		
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@CreationTimestamp
+	private LocalDate date_sortie; 
 	
 	@ManyToMany
 	@JoinTable(
