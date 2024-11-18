@@ -38,8 +38,6 @@ public class Playlist {
 	        inverseJoinColumns = @JoinColumn(name = "song_id")
 	    )
 	private List<Song> songs;
-
-	
 	
 	public Long getId() {
 		return id;
