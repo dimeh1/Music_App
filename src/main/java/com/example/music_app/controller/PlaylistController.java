@@ -173,18 +173,18 @@ public class PlaylistController {
 	}
 	
 	//Suppression de la playlist
-	@PostMapping("delete-playlist")
+	@PostMapping("/delete-playlist")
 	public String deletePlaylist (Model model, @RequestParam("playlistId") Long playlistId, HttpSession session) {
 		if (session.getAttribute("user") != null && (boolean) session.getAttribute("loggedIn")) {
 			User user = (User) session.getAttribute("user");
-			
+
 			Optional<Playlist> playlistOptional = playlistRepository.findByIdAndUser(playlistId, user);
 			if (playlistOptional.isPresent()) {
 				Playlist playlist = playlistOptional.get();
 				for (Song song : playlist.getSongs()) {
 					song.getPlaylists().remove(playlist);
 				}
-				
+
 				playlist.getSongs().clear();
 				playlistRepository.delete(playlist);			}
 			else {
@@ -194,9 +194,42 @@ public class PlaylistController {
 		else {
 			model.addAttribute("error", "Vous devez être connecté pour supprimer une playlist.");
 		}
-		
+
 		return "redirect:/";
 	}
-	
-	
+
+
+	@PostMapping("/add-song-to-playlist")
+	public String addSongToPlaylist(@RequestParam("playlistId") Long playlistId,
+									@RequestParam("songId") Long songId,
+									Model model, HttpSession session) {
+		if (session.getAttribute("loggedIn") != null && (boolean) session.getAttribute("loggedIn")) {
+
+			User user = (User) session.getAttribute("user");
+
+			Optional<Song> songOptional = songRepository.findById(songId);
+			Optional<Playlist> playlistOptional = playlistRepository.findByIdAndUser(playlistId, user);
+
+			if (playlistOptional.isPresent() && songOptional.isPresent()) {
+				Playlist playlist = playlistOptional.get();
+				Song song = songOptional.get();
+
+				if (playlist.getSongs().contains(song)) {
+					playlist.getSongs().add(song);
+					playlistRepository.save(playlist);
+
+					return "redirect:/playlist/" + playlist.getId();
+				} else {
+					model.addAttribute("error", "Cette musique est déjà dans votre playlist Like.");
+				}
+
+			} else {
+				model.addAttribute("error", "Musique non trouvée.");
+			}
+		} else {
+			model.addAttribute("error", "Vous devez être connecté pour ajouter une musique à votre playlist.");
+		}
+		return "redirect:/";
+	}
+
 }

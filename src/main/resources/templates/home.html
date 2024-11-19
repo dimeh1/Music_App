@@ -66,6 +66,10 @@
                 			class="playlist-item"
                 			th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
                 			<span th:text="${playlist.name}">Playlist</span>
+                            <form action="/delete-playlist" method="post" th:if="${playlist.id != 1}">
+                                <input type="hidden" name="playlistId" th:value="${playlist.id}">
+                                <button type="submit">Delete</button>
+                            </form>
            				</li>
            			</ul>
     			</div>
@@ -104,5 +108,6 @@
     </footer>
     
     <script src="/js/addPlaylist.js"></script>
+    <script src="/js/pageHandling.js"></script>
 </body>
 </html>
