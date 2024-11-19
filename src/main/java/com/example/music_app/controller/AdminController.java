@@ -58,14 +58,10 @@ public class AdminController {
 	    return "admin";
 	}
 	
-	@GetMapping("/ajouterArtiste")
-    public String ajouterArtisteForm(Model model) {
-        model.addAttribute("artiste", new Artist());
-        return "ajouterArtiste";
-    }
 
     @PostMapping("/ajouterArtiste")
-    public String ajouterArtiste(@ModelAttribute("artiste") Artist artiste, @RequestParam("name_artiste") String name) {
+    public String ajouterArtiste(Model model, @RequestParam("name") String name) {
+    	Artist artiste = new Artist();
     	artiste.setName(name);
     	artiste.setAlbums(new ArrayList<Album>());
     	artiste.setSongs(new ArrayList<Song>());

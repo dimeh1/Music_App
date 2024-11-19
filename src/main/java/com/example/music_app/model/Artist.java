@@ -24,6 +24,8 @@ public class Artist {
 	
 	@ManyToMany(mappedBy = "artists")
 	private List<Song> songs;
+	
+	private String image;
 
 	
 	
