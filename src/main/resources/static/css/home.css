@@ -208,6 +208,7 @@ header {
 }
 
 .sidebar li {
+	display: flex;
     margin: 10px 0;
     border: 1px solid white;
     padding: 30px;
@@ -217,6 +218,12 @@ header {
 
 .sidebar li:hover {
     background-color: rgba(240, 240, 240, 0.3);
+}
+
+sidebar button{
+	border: none;
+	background-color: #101011;
+	color: white;
 }
 
 .content-container {

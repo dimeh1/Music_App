@@ -68,7 +68,7 @@
                 			<span th:text="${playlist.name}">Playlist</span>
                             <form action="/delete-playlist" method="post" th:if="${playlist.id != 1}">
                                 <input type="hidden" name="playlistId" th:value="${playlist.id}">
-                                <button type="submit">Delete</button>
+                                <button type="submit">X</button>
                             </form>
            				</li>
            			</ul>
