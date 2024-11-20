@@ -44,6 +44,7 @@ public class PlaylistController {
 	            model.addAttribute("playlists", userSession.getPlaylists());
 	            model.addAttribute("playlist", playlist);
 	            model.addAttribute("songs", playlist.getSongs());
+	            model.addAttribute("selectedPlaylistId", playlistId);
 	            return "playlist";
 	        } else {
 	            model.addAttribute("error", "Playlist introuvable ou non autorisée.");

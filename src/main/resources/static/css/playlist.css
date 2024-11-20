@@ -124,7 +124,7 @@ header {
     border-radius: 8px;
     position: relative;
     top: 50%;
-    transform: translateY(-75%);
+    transform: translateY(-50%);
 }
 
 .modal-content h2 {
@@ -186,6 +186,42 @@ header {
 .close:focus {
     color: #ddd;
 }
+
+.modal-content.delete-playlist-modal {
+    width: 400px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.confirm-btn, .cancel-btn {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.confirm-btn:hover {
+	background-color: #555;
+    transform: scale(1.1);
+}
+
+.cancel-btn:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
 /*############################################*/
 
 .add-playlist button{
@@ -208,15 +244,50 @@ header {
 }
 
 .sidebar li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 10px 0;
     border: 1px solid white;
-	padding: 30px;
-	border-radius: 10px;
-	cursor: pointer;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
 }
 
 .sidebar li:hover {
     background-color: rgba(240, 240, 240, 0.3);
+}
+
+.sidebar .delete-button {
+	font-weight: bold;
+	padding: 0;
+    display: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.sidebar li:hover .delete-button {
+    display: block;
+}
+
+
+.sidebar .delete-button:hover {
+    color: red;
+}
+
+.delete-form {
+    margin: 0;
+    padding: 0;
+}
+
+.grayed-out {
+    background-color: rgba(240, 240, 240, 0.3);
+    color: white;
 }
 
 .content-container {

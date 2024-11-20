@@ -45,33 +45,48 @@
                 </div>
             </div>
             
-            <div id="playlistModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h2>Créer une Playlist</h2>
-                    <form id="createPlaylistForm" action="/create-playlist" method="post">
-                        <label for="name">Nom de la Playlist</label>
-                        <input type="text" id="name" name="name" placeholder="Nom de la playlist" required>
-                        <button type="submit">Créer Playlist</button>
-                    </form>
-                </div>
-            </div>
+            <!-- Modal d'ajout de Playlist -->
+			<div id="playlistModal" class="modal">
+    			<div class="modal-content add-playlist-modal">
+        			<span class="close" onclick="closeModal()">&times;</span>
+        			<h2>Créer une Playlist</h2>
+        			<form id="createPlaylistForm" action="/create-playlist" method="post">
+            			<label for="name">Nom de la Playlist</label>
+            			<input type="text" id="name" name="name" placeholder="Nom de la playlist" required>
+            			<button type="submit">Créer Playlist</button>
+        			</form>
+    			</div>
+			</div>
+
+			<!-- Modal de confirmation pour supprimer une playlist -->
+			<div id="deleteModal" class="modal">
+    			<div class="modal-content delete-playlist-modal">
+        			<span class="close" onclick="closeDeleteModal()">&times;</span>
+        			<h2>Supprimer Playlist</h2>
+        			<p>Êtes-vous sûr de vouloir supprimer cette playlist ?</p>
+        			<form id="deletePlaylistForm" action="/delete-playlist" method="post">
+            			<input type="hidden" name="playlistId" id="deletePlaylistId">
+            			<div class="modal-actions">
+                			<button type="submit" class="confirm-btn">Supprimer</button>
+                			<button type="button" class="cancel-btn" onclick="closeDeleteModal()">Annuler</button>
+            			</div>
+        			</form>
+    			</div>
+			</div>
             
             <!-- Liste des playlists -->
 			<nav class="sidebar">
     			<div th:if="${session.loggedIn}">
         			<!-- Vérifie si l'utilisateur a des playlists -->
                     <ul th:if="${playlists != null && !playlists.isEmpty()}">
-                        <li th:each="playlist : ${playlists}"
-                            class="playlist-item"
-                            th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
-                            <span th:text="${playlist.name}">Playlist</span>
-                            <form action="/delete-playlist" method="post" th:if="${playlist.id != 1}">
-                                <input type="hidden" name="playlistId" th:value="${playlist.id}">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </li>
-                    </ul>
+    					<li th:each="playlist : ${playlists}" 
+        					class="playlist-item"
+        					th:attr="onclick=|redirectToPlaylist(${playlist.id})|"
+        					th:classappend="${playlist.id == selectedPlaylistId ? 'grayed-out' : ''}">
+        					<span th:text="${playlist.name}">Playlist</span>
+        					<button type="button" class="delete-button" th:if="${playlist.id != 1}" th:onclick="|openDeleteModal(${playlist.id})|">X</button>
+    					</li>
+					</ul>
     			</div>
     			<!-- Message si l'utilisateur n'est pas connecté -->
     			<div th:if="${session.loggedIn == null || !session.loggedIn}">
@@ -114,7 +129,7 @@
         <!-- Footer content -->
     </footer>
     
-    <script src="/js/addPlaylist.js"></script>
+    <script src="/js/playlist.js"></script>
     <script src="/js/pageHandling.js"></script>
 </body>
 </html>
