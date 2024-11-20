@@ -54,10 +54,10 @@
 			<nav class="sidebar">
     	<div th:if="${session.loggedIn}">
         	<ul>
-           	 	<li><a th:attr="onclick=|openModal()|">Ajouter artiste</a></li>
+           	 	<li><a th:attr="onclick=|openModalAjouterArtist()|">Ajouter artiste</a></li>
             	<li><a th:href="@{/ajouterAlbum}">Ajouter album</a></li>
             	<li><a th:href="@{/ajouterChanson}">Ajouter chanson</a></li>
-            	<li><a th:href="@{/supprimerArtiste/{id}}">Supprimer Artiste</a></li>
+            	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer Artiste</a></li>
             	<li><a th:href="@{/supprimerAlbum/{id}}">Supprimer album</a></li>
             	<li><a th:href="@{/supprimerChanson/{id}}">Supprimer chanson</a></li>
             	<li><a th:href="@{/supprimerUtilisateur}">Supprimer un utilisateur</a></li>
@@ -66,9 +66,9 @@
     	
     	
     		<!-- Formulaire de l'ajout d'artiste -->
-    	<div id="artistModal" class="modal">
+    	<div id="artistModalAjouterArtist" class="modal">
     	<div class="modal-content">
-        	<span class="close" onclick="closeModal()">&times;</span>
+        	<span class="close" onclick="closeModalAjouterArtist()">&times;</span>
         	<h2>Ajouter un Artiste</h2>
        	 	<form th:action="@{/ajouterArtiste}" method="post">  <!-- Ajout de th:action -->
             	<label for="name">Nom de l'artiste</label>
@@ -104,7 +104,25 @@
     		</div>
 			</div>
 			
+		<!-- Formulaire de suppression d'artiste -->
+    	<div id="artistModalSupprimerArtist" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModalSupprimerArtist()">&times;</span>
+        <h2>Supprimer un Artiste</h2>
+        <form th:action="@{/supprimerArtiste}" method="post">
+            <!-- Champ caché pour simuler DELETE -->
+            <input type="hidden" name="_method" value="DELETE">      
+            <label for="name">Nom de l'artiste</label>
+            <input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
+            <button type="submit">Supprimer l'artiste</button>
+        </form>
+    </div>
+</div>
+
     	
+    <div th:if="${session.loggedIn != null && error!=null}">
+    	<p th:text="${error}">Message d'erreur</p>
+    </div>
     	
 			
     			<!-- Message si l'utilisateur n'est pas connecté -->
@@ -141,6 +159,6 @@
         <!-- Footer content -->
     </footer>
     
-    <script src="/js/addArtist.js"></script>
+    <script src="/js/artist.js"></script>
 </body>
 </html>

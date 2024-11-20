@@ -101,7 +101,7 @@ header {
 	font-size: 30px;
 }
 
-/*Petite fenêtre pour l'ajout d'un playlist*/
+/*Petite fenêtre pour l'ajout*/
 .modal {
     display: none;
     position: fixed;
