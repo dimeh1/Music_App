@@ -45,6 +45,12 @@ header {
     width: 500px;
 }
 
+.settings {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
 .auth-links {
     display: flex;
     gap: 20px;

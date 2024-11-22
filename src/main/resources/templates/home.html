@@ -16,6 +16,7 @@
                 <input type="text" name="query" placeholder="Search for music...">
             </form>
         </div>
+        <a href="/settings" class="settings">Settings</a>
         
         <!-- Gestion de la connexion / déconnexion -->
         <div class="auth-links" th:if="${session.loggedIn == null || !session.loggedIn}">
