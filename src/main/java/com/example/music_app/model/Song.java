@@ -38,6 +38,8 @@ public class Song {
 	@ManyToOne
 	private Album album;
 	
+	private String image;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "song_artists",
@@ -138,5 +140,14 @@ public class Song {
 	public void setChemin_audio(String chemin_audio) {
 		this.chemin_audio = chemin_audio;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	
 }

@@ -59,6 +59,7 @@ public class MusicApplication implements ApplicationRunner{
         // Ajouter des chansons
         Song song1 = new Song();
         song1.setTitre("Song 1");
+        song1.setImage("song1.jpg");
         song1.setDuree(180);
         song1.setAlbum(album1);
         song1.setArtists(Arrays.asList(artist1));
@@ -67,6 +68,7 @@ public class MusicApplication implements ApplicationRunner{
 
         Song song2 = new Song();
         song2.setTitre("Song 2");
+        song2.setImage("song2.jpg");
         song2.setDuree(200);
         song2.setAlbum(album2);
         song2.setArtists(Arrays.asList(artist2));

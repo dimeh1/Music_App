@@ -122,6 +122,7 @@
             <h2>Songs</h2>
             <div class="songs">
                 <div class="grid-item" th:each="song : ${songs}">
+                	<img th:src="@{${song.image}}" alt="song image" class="song-image"/>
                     <span th:text="${song.titre}">Song Title</span>
                 </div>
             </div>

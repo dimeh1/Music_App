@@ -1,5 +1,6 @@
 package com.example.music_app.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,11 @@ public class HomeController {
 	    List<Album> albums = albumRepository.findAll();
 	    List<Song> songs = songRepository.findAll();
 
+	    // Mélanger les listes pour un affichage aléatoire
+        Collections.shuffle(artists);
+        Collections.shuffle(albums);
+        Collections.shuffle(songs);
+	    
 	    // Limiter le nombre d'éléments à afficher (par exemple 5)
 	    List<Artist> limitedArtists = artists.stream().limit(5).collect(Collectors.toList());
 	    List<Album> limitedAlbums = albums.stream().limit(5).collect(Collectors.toList());
