@@ -17,13 +17,13 @@ public class SettingsController {
 
     @GetMapping("/settings")
     public String settingsPage(Model model) {
-        model.addAttribute("currentTheme", settings.getTheme());
+        //model.addAttribute("currentTheme", settings.getTheme());
         return "settings"; // Le nom de la page HTML
     }
 
     @PostMapping("/settings")
     public String changeTheme(@RequestParam("theme") String theme) {
-        settings.setTheme(Theme.valueOf(theme.toUpperCase()));
+        //settings.setTheme(Theme.valueOf(theme.toUpperCase()));
         return "redirect:/settings";
     }
 }
