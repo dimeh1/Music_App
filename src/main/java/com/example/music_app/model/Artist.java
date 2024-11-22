@@ -16,7 +16,7 @@ public class Artist {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	
 	@ManyToMany(mappedBy = "artists")
@@ -28,6 +28,13 @@ public class Artist {
 	private String image;
 
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 	public Long getId() {
 		return id;

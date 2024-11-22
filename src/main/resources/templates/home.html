@@ -95,26 +95,43 @@
 
         </div>
         
-        <div class="content-container">
-            <main class="main-content">
-                <section class="content-area">
-                    <h2>Artists</h2>
-                    <div class="artists">
-                        <!-- Liste des artistes -->
-                    </div>
+<div class="content-container">
+    <main class="main-content">
+        <section class="content-area">
+            
+            <!-- Artists Section -->
+            <h2>Artists</h2>
+            <div class="artists">
+                <div class="grid-item" th:each="artist : ${artists}">
+                    <img th:src="@{${artist.image}}" alt="artist image" class="artist-image"/>
+                    <span th:text="${artist.name}">Artist Name</span>
+                </div>
+            </div>
 
-                    <h2>Albums</h2>
-                    <div class="albums">
-                        <!-- Liste des albums -->
-                    </div>
+            <!-- Albums Section -->
+            <h2>Albums</h2>
+            <div class="albums">
+                <div class="grid-item" th:each="album : ${albums}">
+                    <img th:src="@{${album.image}}" alt="album image" class="album-image"/>
+                    <span th:text="${album.nom}">Album Title</span>
+                </div>
+            </div>
 
-                    <h2>Songs</h2>
-                    <div class="songs">
-                        <!-- Liste des musiques -->
-                    </div>
-                </section>
-            </main>
-        </div>
+            <!-- Songs Section -->
+            <h2>Songs</h2>
+            <div class="songs">
+                <div class="grid-item" th:each="song : ${songs}">
+                    <span th:text="${song.titre}">Song Title</span>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+	
+
+
     </div>
     
     <footer>
