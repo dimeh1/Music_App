@@ -30,7 +30,7 @@ public class Song {
 	@NotBlank
 	private String titre;
 	
-	private int duree;
+	private int duree;  //secondes
 	
 	@CreationTimestamp
 	private LocalDate date_sortie;

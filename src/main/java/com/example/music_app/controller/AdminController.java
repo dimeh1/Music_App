@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,7 +76,7 @@ public class AdminController {
         Artist artist = artistRepository.findByName(name);
         if (artist != null) {
         	artistRepository.delete(artist);
-        	//supprimer les références dans les autres tables
+        	//il faut aussi supprimer les références dans les autres tables
         }
         else {
         	model.addAttribute("error", "l'artiste saisit n'existe pas");
@@ -86,18 +85,17 @@ public class AdminController {
     }
     
     
-    
-    @GetMapping("/ajouterAlbum")
-    public String ajouterAlbumForm(Model model) {
-        model.addAttribute("album", new Album());
-        return "ajouterAlbum";
-    }
+   
 
     @PostMapping("/ajouterAlbum")
-    public String ajouterAlbum(@ModelAttribute("album") Album album,@RequestParam("name_album") String nameAlbum, @RequestParam("name_artists") String nameArtists,@RequestParam("name_songs") String nameSongs, @RequestParam("image") String image,RedirectAttributes redirectAttributes) { //à voir pour le type de image
+    public String ajouterAlbum(Model model,@RequestParam("name_album") String nameAlbum, @RequestParam("name_artists") String nameArtists,@RequestParam("name_songs") String nameSongs, @RequestParam("image") String image,RedirectAttributes redirectAttributes) { //à voir pour le type de image
     	try {
+    	Album album =new Album();
     	album.setNom(nameAlbum);	//on remplit les paramètres de l'album
     	album.setImage(image); //voir pour le type de image à l'affichage
+    	albumRepository.save(album);
+    	
+    	//////////////////////////////////////////////////////////////////////////////////////////////////
         List<String> artistNames = Arrays.stream(nameArtists.split(",")) // Pour découper la chaîne en une liste de noms d'artistes
                 .map(String::trim) // Supprimer les espaces inutiles
                 .filter(name -> !name.isEmpty()) // Filtrer les noms vides
@@ -106,11 +104,13 @@ public class AdminController {
         List<Artist> artists = new ArrayList<>();
         
         for (String artistName : artistNames) {
-            Artist artist = artistRepository.findByName(artistName); //On vérifie que l'artite existe déjà
+            Artist artist = artistRepository.findByName(artistName); //On vérifie que l'artiste existe déjà
 
             if (artist == null) {	//Si l'artiste n'existe pas on en crée un nouveau
                 artist = new Artist();
                 artist.setName(artistName);
+                artist.setAlbums(new ArrayList<Album>());
+            	artist.setSongs(new ArrayList<Song>());
                 artistRepository.save(artist); 
             }
 
@@ -131,18 +131,20 @@ public class AdminController {
                 .collect(Collectors.toList());
 
         List<Song> songs = new ArrayList<>();
+        
         for (String songName : songNames) {
             Song sg= songRepository.findByTitre(songName);
             
             if(sg==null) { //Si la musique n'a pas été crée on la crée
-            	Song song = new Song();
-                song.setTitre(songName);
-                song.setAlbum(album);
-                songs.add(song);  //On l'ajoute à la liste des musiques la musique
+            	sg = new Song();
+                sg.setTitre(songName);
+                sg.setAlbum(album);
             }
-            songs.add(sg);
+            songRepository.save(sg);
+            songs.add(sg); //On l'ajoute à la liste des musiques de l'album
             
         }
+        //ajouter la musique à la liste des musiques de chaque artiste
         album.setSongs(songs);
         
         albumRepository.save(album);
@@ -162,17 +164,47 @@ public class AdminController {
     }
     
     
-    
-    @GetMapping("/ajouterChanson")
-    public String ajouterChansonForm(Model model) {
-        model.addAttribute("chanson", new Song());
-        return "ajouterChanson";
-    }
 
     @PostMapping("/ajouterChanson")
-    public String ajouterChanson(@ModelAttribute("chanson") Song chanson, @RequestParam("titre") String titre) {
+    public String ajouterChanson(Model model,@RequestParam("titre") String titre ,@RequestParam("name_artists") String nameArtists,@RequestParam("duree") int duree, @RequestParam("image") String image, RedirectAttributes redirectAttributes) {
+    	try {
+    		
+    	Song chanson=new Song();
     	chanson.setTitre(titre);
+        chanson.setDuree(duree);
+        chanson.setImage(image);
         songRepository.save(chanson);
+        
+        List<String> artistNames = Arrays.stream(nameArtists.split(",")) // Pour découper la chaîne en une liste de noms d'artistes
+                .map(String::trim) // Supprimer les espaces inutiles
+                .filter(name -> !name.isEmpty()) // Filtrer les noms vides
+                .collect(Collectors.toList());
+        
+        List<Artist> artists = new ArrayList<>();
+        
+        for (String artistName : artistNames) {
+            Artist artist = artistRepository.findByName(artistName); //On vérifie que l'artiste existe déjà
+
+            if (artist == null) {	//Si l'artiste n'existe pas on en crée un nouveau
+                artist = new Artist();
+                artist.setName(artistName);
+                artist.setAlbums(new ArrayList<Album>());
+            	artist.setSongs(new ArrayList<Song>());
+                 
+            }
+            artist.getSongs().add(chanson);
+            artistRepository.save(artist);
+            
+            artists.add(artist); //on l'ajoute à la liste des artistes de la musique
+        }
+        chanson.setArtists(artists);
+        
+        songRepository.save(chanson);
+        
+        redirectAttributes.addFlashAttribute("success", "musique ajoutée avec succès !");
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "Erreur lors de l'ajout de la musique");
+    }
         return "redirect:/admin";
     }
 

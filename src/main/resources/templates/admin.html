@@ -55,8 +55,8 @@
     	<div th:if="${session.loggedIn}">
         	<ul>
            	 	<li><a th:attr="onclick=|openModalAjouterArtist()|">Ajouter artiste</a></li>
-            	<li><a th:href="@{/ajouterAlbum}">Ajouter album</a></li>
-            	<li><a th:href="@{/ajouterChanson}">Ajouter chanson</a></li>
+            	<li><a th:attr="onclick=|openModalAjouterAlbum()|">Ajouter album</a></li>
+            	<li><a th:attr="onclick=|openModalAjouterSong()|">Ajouter chanson</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer Artiste</a></li>
             	<li><a th:href="@{/supprimerAlbum/{id}}">Supprimer album</a></li>
             	<li><a th:href="@{/supprimerChanson/{id}}">Supprimer chanson</a></li>
@@ -70,7 +70,7 @@
     	<div class="modal-content">
         	<span class="close" onclick="closeModalAjouterArtist()">&times;</span>
         	<h2>Ajouter un Artiste</h2>
-       	 	<form th:action="@{/ajouterArtiste}" method="post">  <!-- Ajout de th:action -->
+       	 	<form th:action="@{/ajouterArtiste}" method="post"> 
             	<label for="name">Nom de l'artiste</label>
             	<input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
             	<button type="submit">Ajouter Artiste</button>
@@ -79,11 +79,11 @@
 		</div>
 			
 			<!-- Formulaire de l'album -->
-			<div id="albumModal" class="modal">
+			<div id="albumModalAjouterAlbum" class="modal">
     			<div class="modal-content">
-        	<span class="close" onclick="closeModal()">&times;</span>
+        	<span class="close" onclick="closeModalAjouterAlbum()">&times;</span>
         		<h2>Ajouter un Album</h2>
-        		<form id="createAlbumForm" action="/ajouterAlbum" method="post">
+        		<form th:action="@{/ajouterAlbum}" method="post">
             		<label for="name_album">Nom de l'album :</label>
     	<input type="text" id="name_album" name="name_album" placeholder="Nom de l'album" required />
 
@@ -93,16 +93,38 @@
     	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
     	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
     	
-    	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
-    	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
-    	
-    	<label for="cover_image_url">Lien vers la pochette :</label>
+    	<label for="image">Lien vers la pochette :</label>
   		<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required />
 
     	<button type="submit">Ajouter l'album</button>
 		</form>
     		</div>
 			</div>
+			
+			
+			<!-- Formulaire de l'ajout de musique -->
+    	<div id="songModalAjouterSong" class="modal">
+    	<div class="modal-content">
+        	<span class="close" onclick="closeModalAjouterSong()">&times;</span>
+        	<h2>Ajouter une Musique</h2>
+       	 	<form th:action="@{/ajouterChanson}" method="post">  
+            	<label for="titre">Nom de la musique</label>
+            	<input type="text" id="titre" name="titre" placeholder="Nom de la musique" required>
+            	
+            	<label for="name_artists">Noms des artistes (séparés par des virgules) :</label>
+    			<input type="text" id="name_artists" name="name_artists" placeholder="Artiste 1, Artiste 2, ..." required />
+            	
+            	<label for="duree">Durée</label>
+            	<input type="text" id="duree" name="duree" placeholder="Durée s" required>
+            	
+            	<label for="image">Image</label>
+            	<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
+            	
+            	<button type="submit">Ajouter Musique</button>
+        		</form>
+    		</div>
+		</div>
+		
 			
 		<!-- Formulaire de suppression d'artiste -->
     	<div id="artistModalSupprimerArtist" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
@@ -160,5 +182,7 @@
     </footer>
     
     <script src="/js/artist.js"></script>
+    <script src="/js/album.js"></script>
+    <script src="/js/song.js"></script>
 </body>
 </html>
