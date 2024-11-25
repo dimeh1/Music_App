@@ -26,7 +26,7 @@ public class User {
 	@NotBlank
 	private String password;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)  //Quand un utilisateur est supprimé, la relation dans cette tabmle se supprime en cascade
 	private List<Playlist> playlists = new ArrayList<Playlist>();
 
 	@Enumerated(EnumType.STRING)

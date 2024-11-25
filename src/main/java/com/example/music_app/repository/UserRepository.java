@@ -11,6 +11,8 @@ import com.example.music_app.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	User findByUsername(String username);
+	
 	Optional<User> findByEmail(String email);
 	
 	List<User> findAll();

@@ -59,8 +59,8 @@
             	<li><a th:attr="onclick=|openModalAjouterSong()|">Ajouter chanson</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer Artiste</a></li>
             	<li><a th:href="@{/supprimerAlbum/{id}}">Supprimer album</a></li>
-            	<li><a th:href="@{/supprimerChanson/{id}}">Supprimer chanson</a></li>
-            	<li><a th:href="@{/supprimerUtilisateur}">Supprimer un utilisateur</a></li>
+            	<li><a th:attr="onclick=|openModalSupprimerSong()|">Supprimer chanson</a></li>
+            	<li><a th:attr="onclick=|openModalSupprimerUser()|">Supprimer un utilisateur</a></li>
         	</ul>
     	</div>
     	
@@ -141,6 +141,36 @@
     </div>
 </div>
 
+		<!-- Formulaire de suppression de musique -->
+    	<div id="songModalSupprimerSong" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModalSupprimerSong()">&times;</span>
+        <h2>Supprimer une musique</h2>
+        <form th:action="@{/supprimerChanson}" method="post">
+            <!-- Champ caché pour simuler DELETE -->
+            <input type="hidden" name="_method" value="DELETE">      
+            <label for="name">Nom de la chanson à supprimer</label>
+            <input type="text" id="name" name="name" placeholder="Nom de la chanson" required>
+            <button type="submit">Supprimer la chanson</button>
+        </form>
+    </div>
+</div>
+
+		<!-- Formulaire de suppression d'utilisateur -->
+    	<div id="userModalSupprimerUser" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModalSupprimerUser()">&times;</span>
+        <h2>Supprimer un utilisateur</h2>
+        <form th:action="@{/supprimerUser}" method="post">
+            <!-- Champ caché pour simuler DELETE -->
+            <input type="hidden" name="_method" value="DELETE">      
+            <label for="username">Nom de l'utilisateur à supprimer</label>
+            <input type="text" id="username" name="username" placeholder="Nom de l'utilisateur" required>
+            <button type="submit">Supprimer l'utilisateur</button>
+        </form>
+    </div>
+</div>
+
     	
     <div th:if="${session.loggedIn != null && error!=null}">
     	<p th:text="${error}">Message d'erreur</p>
@@ -184,5 +214,6 @@
     <script src="/js/artist.js"></script>
     <script src="/js/album.js"></script>
     <script src="/js/song.js"></script>
+    <script src="/js/user.js"></script>
 </body>
 </html>

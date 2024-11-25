@@ -208,9 +208,31 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/supprimerChanson/{id}")
-    public String supprimerChanson(@PathVariable Long id) {
-    //	songRepository.delete(id);
+    @DeleteMapping("/supprimerChanson")
+    public String supprimerChanson(Model model, @RequestParam("name") String name) {
+    	Song song = songRepository.findByTitre(name);
+        if (song != null) {
+        	songRepository.delete(song);
+        	//supprime la relation artiste song (à voir pouvoir album song et playlist song)
+        	//peut être faire une recherche par artiste en +
+        }
+        else {
+        	model.addAttribute("error", "la musique saisie n'existe pas");
+        }
+        return "redirect:/admin";
+    }
+    
+    @DeleteMapping("/supprimerUser")
+    public String supprimerUser(Model model, @RequestParam("username") String username) {
+    	User user = userRepository.findByUsername(username);
+        if (user != null) {
+        	userRepository.delete(user);
+        	//supprime la relation artiste song (à voir pouvoir album song et playlist song)
+        	//peut être faire une recherche par artiste en +
+        }
+        else {
+        	model.addAttribute("error", "l'utilisateur saisit n'existe pas");
+        }
         return "redirect:/admin";
     }
     
