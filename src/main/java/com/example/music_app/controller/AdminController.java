@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -139,12 +138,23 @@ public class AdminController {
             	sg = new Song();
                 sg.setTitre(songName);
                 sg.setAlbum(album);
+                sg.setArtists(new ArrayList<>());
             }
             songRepository.save(sg);
             songs.add(sg); //On l'ajoute à la liste des musiques de l'album
-            
+                           
         }
-        //ajouter la musique à la liste des musiques de chaque artiste
+      //Pour ajouter chaque musique à la liste des musiques de chaque artiste et chaque artiste à la liste des artiste de la chanson (ne marche pas)
+        for(Artist ar : artists) {
+        	for(Song song : songs) {
+        		ar.getSongs().add(song);
+            	artistRepository.save(ar);
+            	song.getArtists().add(ar);
+            	songRepository.save(song);
+        	}
+        	
+        }
+
         album.setSongs(songs);
         
         albumRepository.save(album);
@@ -157,9 +167,18 @@ public class AdminController {
     return "redirect:/admin";
 }
 
-    @GetMapping("/supprimerAlbum/{id}")
-    public String supprimerAlbum(@PathVariable Long id) {
-    //	albumRepository.delete(id);
+    @DeleteMapping("/supprimerAlbum")
+    public String supprimerAlbum(Model model, @RequestParam("name") String name) {
+    	Album album= albumRepository.findByNom(name);
+    	if (album != null) {
+    		for(Song song : album.getSongs()) {
+    			songRepository.delete(song);
+    		}
+    		albumRepository.delete(album);
+    	}
+    	else {
+    		model.addAttribute("error, l'album saisit n'est pas valide");
+    	}
         return "redirect:/admin";
     }
     

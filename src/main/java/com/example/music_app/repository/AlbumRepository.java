@@ -8,4 +8,5 @@ import com.example.music_app.model.Album;
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
+	Album findByNom(String name);
 }

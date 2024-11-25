@@ -58,7 +58,7 @@
             	<li><a th:attr="onclick=|openModalAjouterAlbum()|">Ajouter album</a></li>
             	<li><a th:attr="onclick=|openModalAjouterSong()|">Ajouter chanson</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer Artiste</a></li>
-            	<li><a th:href="@{/supprimerAlbum/{id}}">Supprimer album</a></li>
+            	<li><a th:attr="onclick=|openModalSupprimerAlbum()|">Supprimer album</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerSong()|">Supprimer chanson</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerUser()|">Supprimer un utilisateur</a></li>
         	</ul>
@@ -137,6 +137,22 @@
             <label for="name">Nom de l'artiste</label>
             <input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
             <button type="submit">Supprimer l'artiste</button>
+        </form>
+    </div>
+</div>
+
+		
+		<!-- Formulaire de suppression d'album -->
+    	<div id="albumModalSupprimerAlbum" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModalSupprimerAlbum()">&times;</span>
+        <h2>Supprimer un Album</h2>
+        <form th:action="@{/supprimerAlbum}" method="post">
+            <!-- Champ caché pour simuler DELETE -->
+            <input type="hidden" name="_method" value="DELETE">      
+            <label for="name">Nom de l'album</label>
+            <input type="text" id="name" name="name" placeholder="Nom de l'album" required>
+            <button type="submit">Supprimer l'album</button>
         </form>
     </div>
 </div>
