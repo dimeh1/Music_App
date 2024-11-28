@@ -259,7 +259,7 @@ header {
     align-items: center;
     margin: 10px 0;
     border: 1px solid white;
-    padding: 30px;
+    padding: 15px;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -269,12 +269,26 @@ header {
     background-color: rgba(240, 240, 240, 0.3);
 }
 
+.playlist-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.playlist-item span {
+    flex-grow: 1;
+    text-align: center;
+}
+
+
 .sidebar .delete-button {
 	font-weight: bold;
-	padding: 0;
-    display: none;
+    visibility: hidden;
+    width: 20px;
+    text-align: center;
     border: none;
-    background-color: transparent;
+    background: transparent;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -282,7 +296,7 @@ header {
 }
 
 .sidebar li:hover .delete-button {
-    display: block;
+    visibility: visible;
 }
 
 

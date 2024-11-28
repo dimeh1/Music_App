@@ -66,7 +66,7 @@ public class PlaylistController {
 			Playlist playlist = new Playlist();
 			playlist.setName(name);
 			playlist.setUser(user);
-			
+			playlist.setImage("/img/predefPlaylist.jpeg");			
 			playlistRepository.save(playlist);
 		}
 		

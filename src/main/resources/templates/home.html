@@ -83,7 +83,11 @@
     					<li th:each="playlist : ${playlists}" 
         					class="playlist-item"
         					th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
+        					
+        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id != 1}">
+        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id == 1}">
         					<span th:text="${playlist.name}">Playlist</span>
+        					
         					<button type="button" class="delete-button" th:if="${playlist.id != 1}" th:onclick="|openDeleteModal(${playlist.id})|">X</button>
     					</li>
 					</ul>
