@@ -215,7 +215,7 @@ public class PlaylistController {
 				Playlist playlist = playlistOptional.get();
 				Song song = songOptional.get();
 
-				if (playlist.getSongs().contains(song)) {
+				if (!playlist.getSongs().contains(song)) {
 					playlist.getSongs().add(song);
 					playlistRepository.save(playlist);
 

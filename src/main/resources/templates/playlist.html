@@ -128,7 +128,10 @@
                     <tbody>
                         <tr th:each="song, stat : ${songs}">
                             <td th:text="${stat.index + 1}"></td>
-                            <td th:text="${song.titre}">Titre</td>
+                            <td>
+                            	<!-- <img alt="Song" class="image-song-playlist" th:src="@{${song.image}}"> -->
+                            	<span th:text="${song.titre}">Titre</span>
+                            </td>
                             <td th:text="${song.album.nom}">Album</td>
                             <td th:text="${song.duree}">Durée</td>
                         </tr>
