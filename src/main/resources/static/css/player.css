@@ -30,11 +30,11 @@
 }
 
 .music-player .progress-wrapper .progress-bar {
-    width: 0;
     height: 3px;
     background-color: white;
-    animation: play 60s linear 1s infinite;
+    transition: width 1s linear;  /* Added transition for smooth width change */
 }
+
 
 .music-player .times-row {
     display: flex;
