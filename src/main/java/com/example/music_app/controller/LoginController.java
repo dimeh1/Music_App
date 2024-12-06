@@ -90,6 +90,7 @@ public class LoginController {
 				Playlist like = new Playlist();
 				like.setName("Like");
 				like.setUser(user);
+				like.setImage("/img/like.jpg");
 				user.getPlaylists().add(like);
 
 				settingsRepository.save(settings);

@@ -39,6 +39,8 @@ public class Playlist {
 	    )
 	private List<Song> songs;
 	
+	private String image;
+	
 	public Long getId() {
 		return id;
 	}
@@ -79,4 +81,12 @@ public class Playlist {
 		this.songs = songs;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 }

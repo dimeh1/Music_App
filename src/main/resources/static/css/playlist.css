@@ -196,6 +196,8 @@ header {
     justify-content: center;
 }
 
+
+
 .modal-actions {
     display: flex;
     gap: 20px;
@@ -212,6 +214,8 @@ header {
     cursor: pointer;
 }
 
+
+
 .confirm-btn:hover {
 	background-color: #555;
     transform: scale(1.1);
@@ -220,6 +224,60 @@ header {
 .cancel-btn:hover {
     background-color: #555;
     transform: scale(1.1);
+}
+
+/* Styles pour la modale */
+.update-playlist-modal {
+	width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.update-playlist-modal h2 {
+	font-size: 30px;
+	margin: 0px;
+	padding-bottom: 0px;
+	padding-top: 30px;
+}
+#currentImage {
+	border-radius: 8px;
+    width: 200px;  /* Ajustez la taille de l'image à vos besoins */
+    height: 200px;
+    object-fit: cover;  /* Assurez-vous que l'image ne soit pas déformée */
+    display: block;
+    margin: 10px auto;  /* Centrez l'image */
+}
+
+/* Conteneur pour l'image et les informations de la playlist */
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Partie gauche pour l'image */
+.left {
+    text-align: center;
+    width: 40%;
+}
+
+/* Partie droite pour les informations de la playlist */
+.right {
+    width: 55%;
+    text-align: center;
+}
+
+#updateName{
+	font-size: 25px;
+}
+
+.right button {
+	font-size: 20px !important;
 }
 
 /*############################################*/
@@ -249,7 +307,7 @@ header {
     align-items: center;
     margin: 10px 0;
     border: 1px solid white;
-    padding: 30px;
+    padding: 15px;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -259,12 +317,30 @@ header {
     background-color: rgba(240, 240, 240, 0.3);
 }
 
+.playlist-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.playlist-main-image:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.playlist-item span {
+    flex-grow: 1;
+    text-align: center;
+}
+
 .sidebar .delete-button {
 	font-weight: bold;
-	padding: 0;
-    display: none;
+    visibility: hidden;
+    width: 20px;
+    text-align: center;
     border: none;
-    background-color: transparent;
+    background: transparent;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -272,7 +348,7 @@ header {
 }
 
 .sidebar li:hover .delete-button {
-    display: block;
+    visibility: visible;
 }
 
 
@@ -299,27 +375,32 @@ header {
 }
 
 .main-head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-.main-head p {
-    font-size: 16px;
-    color: #b3b3b3;
-    margin: 0;
+.playlist-main-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-.main-head h1 {
-    font-size: 28px;
+.playlist-info h1 {
+    font-size: 100px;
     margin: 5px 0;
-    color: #1db954;
+    color: white;
 }
 
-.main-head h4 {
-    font-size: 14px;
+.playlist-info h4 {
+    font-size: 17px;
     margin: 5px 0;
     color: #b3b3b3;
 }
+
 
 table {
     width: 100%;
@@ -353,6 +434,22 @@ tbody td {
     padding: 10px;
     font-size: 16px;
     color: #ffffff;
+}
+
+td.song-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-song-playlist {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+}
+
+.song-title {
+    margin: 0;
 }
 
 footer {

@@ -83,7 +83,11 @@
         					class="playlist-item"
         					th:attr="onclick=|redirectToPlaylist(${playlist.id})|"
         					th:classappend="${playlist.id == selectedPlaylistId ? 'grayed-out' : ''}">
+        					
+        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id != 1}">
+        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id == 1}">
         					<span th:text="${playlist.name}">Playlist</span>
+        					
         					<button type="button" class="delete-button" th:if="${playlist.id != 1}" th:onclick="|openDeleteModal(${playlist.id})|">X</button>
     					</li>
 					</ul>
@@ -98,11 +102,20 @@
         
         <div class="content-container">
             <main class="main-content">
-            	<div class="main-head">
-            		<p>Playlist</p>
-            		<h1 th:text="${playlist.name}">Playlist name</h1>
-            		<h4 th:text="${user.username}">User</h4>
-            	</div>
+				<div class="main-head">
+    				<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-main-image" 
+    					th:attr="onclick=|openUpdateModal(${playlist.id}, '${playlist.name}')|"
+    					th:if="${playlist.id != 1}"/>
+    					
+    				<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-main-image" 
+    					th:if="${playlist.id == 1}"/>
+    				<div class="playlist-info">
+        				<h4>Playlist</h4>
+        				<h1 th:text="${playlist.name}">Playlist name</h1>
+        				<h4 th:text="${user.username}">User</h4>
+    				</div>
+				</div>
+
             	<table>
                     <thead>
                         <tr>
@@ -115,7 +128,10 @@
                     <tbody>
                         <tr th:each="song, stat : ${songs}">
                             <td th:text="${stat.index + 1}"></td>
-                            <td th:text="${song.titre}">Titre</td>
+                            <td>
+                            	<!-- <img alt="Song" class="image-song-playlist" th:src="@{${song.image}}"> -->
+                            	<span th:text="${song.titre}">Titre</span>
+                            </td>
                             <td th:text="${song.album.nom}">Album</td>
                             <td th:text="${song.duree}">Durée</td>
                         </tr>
@@ -124,6 +140,34 @@
             </main>
         </div>
     </div>
+    
+<!-- Modal de modification de Playlist -->
+<div id="updatePlaylistModal" class="modal">
+    <div class="modal-content update-playlist-modal">
+        <span class="close" onclick="closeUpdateModal()">&times;</span>
+        <h2>Modifier Playlist</h2>
+        
+        <form id="updatePlaylistForm" action="/update-playlist" method="post" enctype="multipart/form-data" class="update-playlist-form">
+            <input type="hidden" name="playlistId" id="updatePlaylistId">
+            
+            <!-- Conteneur de l'image à gauche et des informations à droite -->
+            <div class="form-container">
+                <!-- Partie gauche pour l'image -->
+                <div class="left">
+                    <img id="currentImage" th:src="@{${playlist.image}}" alt="Image de la playlist">
+                </div>
+                
+                <!-- Partie droite pour les informations de la playlist -->
+                <div class="right">
+                    <input type="text" id="updateName" name="name" placeholder="Nom de la playlist" required>
+                    <button type="submit">Enregistrer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
     
     <footer>
         <!-- Footer content -->
