@@ -367,6 +367,26 @@ h2 {
     background-color: #f0f0f0; /* Changement de couleur au survol */
 }
 
+.album-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.album-card:hover {
+    transform: scale(1.05); /* Effet zoom au survol */
+    background-color: #f0f0f0; /* Changement de couleur au survol */
+}
+
+.artist-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.artist-card:hover {
+    transform: scale(1.05); /* Effet zoom au survol */
+    background-color: #f0f0f0; /* Changement de couleur au survol */
+}
+
 
 /* Ajustements spécifiques aux images des artistes et albums */
 .artist-image, .album-image, .song-image {
