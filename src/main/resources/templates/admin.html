@@ -66,17 +66,22 @@
     	
     	
     		<!-- Formulaire de l'ajout d'artiste -->
-    	<div id="artistModalAjouterArtist" class="modalartiste">
-    	<div class="modalartiste-content">
-        	<span class="close" onclick="closeModalAjouterArtist()">&times;</span>
-        	<h2>Ajouter un artiste</h2>
-       	 	<form th:action="@{/ajouterArtiste}" method="post"> 
-            	<label for="name">Nom de l'artiste</label>
-            	<input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
-            	<button type="submit">Ajouter artiste</button>
-        		</form>
-    		</div>
-		</div>
+<div id="artistModalAjouterArtist" class="modalartiste">
+    <div class="modalartiste-content">
+        <span class="close" onclick="closeModalAjouterArtist()">&times;</span>
+        <h2>Ajouter un artiste</h2>
+        <form th:action="@{/ajouterArtiste}" method="post">
+            <label for="name">Nom de l'artiste</label>
+            <input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
+
+            <label for="image">URL de la photo de l'artiste</label>
+            <input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
+
+            <button type="submit">Ajouter artiste</button>
+        </form>
+    </div>
+</div>
+
 			
 			<!-- Formulaire de l'album -->
 			<div id="albumModalAjouterAlbum" class="modal">
@@ -93,8 +98,8 @@
     	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
     	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
     	
-    	<label for="image">Lien vers la pochette :</label>
-  		<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required />
+    	<label for="image"> URL du lien vers la pochette :</label>
+  		<input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
 
     	<button type="submit">Ajouter l'album</button>
 		</form>
@@ -114,11 +119,11 @@
             	<label for="name_artists">Noms des artistes (séparés par des virgules) :</label>
     			<input type="text" id="name_artists" name="name_artists" placeholder="Artiste 1, Artiste 2, ..." required />
             	
-            	<label for="duree">Durée</label>
+            	<label for="duree">Durée (en secondes)</label>
             	<input type="text" id="duree" name="duree" placeholder="Durée s" required>
             	
-            	<label for="image">Image</label>
-            	<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
+            	<label for="image">URL de l'image de la musique</label>
+            	<input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
             	
             	<button type="submit">Ajouter chanson</button>
         		</form>
@@ -204,19 +209,19 @@
         <div class="content-container">
             <main class="main-content">
                 <section class="content-area">
-                    <h2>Artists</h2>
+                    
                     <div class="artists">
-                        <!-- Liste des artistes -->
+                        <h2>Choisir une action à effectuer</h2>
                     </div>
 
-                    <h2>Albums</h2>
+                    
                     <div class="albums">
-                        <!-- Liste des albums -->
+                        
                     </div>
 
-                    <h2>Songs</h2>
+                    
                     <div class="songs">
-                        <!-- Liste des musiques -->
+                        
                     </div>
                 </section>
             </main>
@@ -231,5 +236,6 @@
     <script src="/js/album.js"></script>
     <script src="/js/song.js"></script>
     <script src="/js/user.js"></script>
+    
 </body>
 </html>
