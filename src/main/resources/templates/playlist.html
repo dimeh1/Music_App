@@ -121,6 +121,7 @@
                         <tr>
                             <th>#</th>
                             <th>Titre</th>
+                            <th>Artiste(s)</th>
                             <th>Album</th>
                             <th>Durée</th>
                         </tr>
@@ -128,10 +129,16 @@
                     <tbody>
                         <tr th:each="song, stat : ${songs}">
                             <td th:text="${stat.index + 1}"></td>
-                            <td>
-                            	<!-- <img alt="Song" class="image-song-playlist" th:src="@{${song.image}}"> -->
-                            	<span th:text="${song.titre}">Titre</span>
-                            </td>
+                            <td class="song-cell"> <!-- Classe ajoutée pour styler l'image et le titre -->
+                				<img alt="Song Image" th:src="@{${song.image}}" class="image-song-playlist">
+                				<span class="song-title" th:text="${song.titre}">Titre</span>
+            				</td>
+            				<td>
+            					<span th:each="artist, iterStat : ${artists}">
+                					<span th:text="${artist.name}"></span>
+                					<span th:if="${!iterStat.last}">, </span>
+            					</span>
+        					</td>
                             <td th:text="${song.album.nom}">Album</td>
                             <td th:text="${song.duree}">Durée</td>
                         </tr>

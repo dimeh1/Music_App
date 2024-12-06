@@ -57,7 +57,7 @@
            	 	<li><a th:attr="onclick=|openModalAjouterArtist()|">Ajouter artiste</a></li>
             	<li><a th:attr="onclick=|openModalAjouterAlbum()|">Ajouter album</a></li>
             	<li><a th:attr="onclick=|openModalAjouterSong()|">Ajouter chanson</a></li>
-            	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer Artiste</a></li>
+            	<li><a th:attr="onclick=|openModalSupprimerArtist()|">Supprimer artiste</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerAlbum()|">Supprimer album</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerSong()|">Supprimer chanson</a></li>
             	<li><a th:attr="onclick=|openModalSupprimerUser()|">Supprimer un utilisateur</a></li>
@@ -66,23 +66,28 @@
     	
     	
     		<!-- Formulaire de l'ajout d'artiste -->
-    	<div id="artistModalAjouterArtist" class="modal">
-    	<div class="modal-content">
-        	<span class="close" onclick="closeModalAjouterArtist()">&times;</span>
-        	<h2>Ajouter un Artiste</h2>
-       	 	<form th:action="@{/ajouterArtiste}" method="post"> 
-            	<label for="name">Nom de l'artiste</label>
-            	<input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
-            	<button type="submit">Ajouter Artiste</button>
-        		</form>
-    		</div>
-		</div>
+<div id="artistModalAjouterArtist" class="modalartiste">
+    <div class="modalartiste-content">
+        <span class="close" onclick="closeModalAjouterArtist()">&times;</span>
+        <h2>Ajouter un artiste</h2>
+        <form th:action="@{/ajouterArtiste}" method="post">
+            <label for="name">Nom de l'artiste</label>
+            <input type="text" id="name" name="name" placeholder="Nom de l'artiste" required>
+
+            <label for="image">URL de la photo de l'artiste</label>
+            <input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
+
+            <button type="submit">Ajouter artiste</button>
+        </form>
+    </div>
+</div>
+
 			
 			<!-- Formulaire de l'album -->
 			<div id="albumModalAjouterAlbum" class="modal">
     			<div class="modal-content">
         	<span class="close" onclick="closeModalAjouterAlbum()">&times;</span>
-        		<h2>Ajouter un Album</h2>
+        		<h2>Ajouter un album</h2>
         		<form th:action="@{/ajouterAlbum}" method="post">
             		<label for="name_album">Nom de l'album :</label>
     	<input type="text" id="name_album" name="name_album" placeholder="Nom de l'album" required />
@@ -93,8 +98,8 @@
     	<label for="name_songs">Noms des musiques (séparées par des virgules) :</label>
     	<input type="text" id="name_songs" name="name_songs" placeholder="Musique 1, Musique 2, ..." required />
     	
-    	<label for="image">Lien vers la pochette :</label>
-  		<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required />
+    	<label for="image"> URL du lien vers la pochette :</label>
+  		<input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
 
     	<button type="submit">Ajouter l'album</button>
 		</form>
@@ -106,7 +111,7 @@
     	<div id="songModalAjouterSong" class="modal">
     	<div class="modal-content">
         	<span class="close" onclick="closeModalAjouterSong()">&times;</span>
-        	<h2>Ajouter une Musique</h2>
+        	<h2>Ajouter une chanson</h2>
        	 	<form th:action="@{/ajouterChanson}" method="post">  
             	<label for="titre">Nom de la musique</label>
             	<input type="text" id="titre" name="titre" placeholder="Nom de la musique" required>
@@ -114,13 +119,13 @@
             	<label for="name_artists">Noms des artistes (séparés par des virgules) :</label>
     			<input type="text" id="name_artists" name="name_artists" placeholder="Artiste 1, Artiste 2, ..." required />
             	
-            	<label for="duree">Durée</label>
+            	<label for="duree">Durée (en secondes)</label>
             	<input type="text" id="duree" name="duree" placeholder="Durée s" required>
             	
-            	<label for="image">Image</label>
-            	<input type="file" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
+            	<label for="image">URL de l'image de la musique</label>
+            	<input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
             	
-            	<button type="submit">Ajouter Musique</button>
+            	<button type="submit">Ajouter chanson</button>
         		</form>
     		</div>
 		</div>
@@ -130,7 +135,7 @@
     	<div id="artistModalSupprimerArtist" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
     <div class="modal-content">
         <span class="close" onclick="closeModalSupprimerArtist()">&times;</span>
-        <h2>Supprimer un Artiste</h2>
+        <h2>Supprimer un artiste</h2>
         <form th:action="@{/supprimerArtiste}" method="post">
             <!-- Champ caché pour simuler DELETE -->
             <input type="hidden" name="_method" value="DELETE">      
@@ -146,7 +151,7 @@
     	<div id="albumModalSupprimerAlbum" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
     <div class="modal-content">
         <span class="close" onclick="closeModalSupprimerAlbum()">&times;</span>
-        <h2>Supprimer un Album</h2>
+        <h2>Supprimer un album</h2>
         <form th:action="@{/supprimerAlbum}" method="post">
             <!-- Champ caché pour simuler DELETE -->
             <input type="hidden" name="_method" value="DELETE">      
@@ -204,19 +209,19 @@
         <div class="content-container">
             <main class="main-content">
                 <section class="content-area">
-                    <h2>Artists</h2>
+                    
                     <div class="artists">
-                        <!-- Liste des artistes -->
+                        <h2>Choisir une action à effectuer</h2>
                     </div>
 
-                    <h2>Albums</h2>
+                    
                     <div class="albums">
-                        <!-- Liste des albums -->
+                        
                     </div>
 
-                    <h2>Songs</h2>
+                    
                     <div class="songs">
-                        <!-- Liste des musiques -->
+                        
                     </div>
                 </section>
             </main>
@@ -231,5 +236,6 @@
     <script src="/js/album.js"></script>
     <script src="/js/song.js"></script>
     <script src="/js/user.js"></script>
+    
 </body>
 </html>

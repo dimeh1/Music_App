@@ -123,10 +123,10 @@
                     </thead>
 					<tbody>
     					<tr>
-        					<td>
-        						<!-- <img alt="musique" th:src="@{${song.image}}"> -->
-        						<span th:text="${song.titre}"></span>
-        					</td>
+        					<td class="song-cell"> <!-- Classe ajoutée pour styler l'image et le titre -->
+                				<img alt="Song Image" th:src="@{${song.image}}" class="image-song-playlist">
+                				<span class="song-title" th:text="${song.titre}">Titre</span>
+            				</td>
 
         					<td>
             					<span th:each="artist, iterStat : ${artists}">

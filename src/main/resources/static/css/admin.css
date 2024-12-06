@@ -101,8 +101,211 @@ header {
 	font-size: 30px;
 }
 
+
 /*Petite fenêtre pour l'ajout*/
+
 .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: black;
+    border: 2px solid white;
+    margin: auto;
+    padding: 0px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-75%);
+}
+
+.modal-content h2 {
+    font-size: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modal-content form {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modal-content form label {
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modal-content form input {
+    font-size: 18px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.modal-content form button {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal-content button {
+    font-size: 15px;
+    margin-top: 40px;
+}
+
+.close {
+    color: white;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ddd;
+}
+
+
+/********************************************************************************************************************/
+.modalartiste {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modalartiste-content {
+    background-color: black;
+    border: 2px solid white;
+    margin: auto;
+    padding: 0px;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-75%);
+}
+
+.modalartiste-content h2 {
+    font-size: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modalartiste-content form {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modalartiste-content form label {
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modalartiste-content form input {
+    font-size: 18px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.modalartiste-content form button {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modalartiste-content button {
+    font-size: 15px;
+    margin-top: 40px;
+}
+
+.close {
+    color: white;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ddd;
+}
+
+/***************************************************************************/
+.modalalbum {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modalmusique {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modaluser {
     display: none;
     position: fixed;
     z-index: 1;
@@ -213,14 +416,30 @@ header {
 .sidebar li {
     margin: 10px 0;
     border: 1px solid white;
-    padding: 30px;
     border-radius: 10px;
+    overflow: hidden; 
     cursor: pointer;
+}
+
+.sidebar li a {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    padding: 30px; 
+    text-decoration: none; 
+    color: white; 
+    background-color: transparent; 
+    box-sizing: border-box; 
 }
 
 .sidebar li:hover {
     background-color: rgba(240, 240, 240, 0.3);
 }
+
+.sidebar li a:hover {
+    color: #ffffff; /* Change la couleur du texte au survol */
+}
+
 
 .content-container {
     flex: 1;

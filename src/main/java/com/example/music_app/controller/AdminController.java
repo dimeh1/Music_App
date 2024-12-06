@@ -1,5 +1,7 @@
 package com.example.music_app.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.music_app.model.Album;
 import com.example.music_app.model.Artist;
 import com.example.music_app.model.Song;
+import com.example.music_app.model.Status;
 import com.example.music_app.model.User;
 import com.example.music_app.repository.AlbumRepository;
 import com.example.music_app.repository.ArtistRepository;
@@ -48,34 +52,48 @@ public class AdminController {
 	    	User userSession = (User) session.getAttribute("user");
 	    	User user = userRepository.findByEmail(userSession.getEmail()).get();
 	    	
-	        model.addAttribute("user", user);
-	        model.addAttribute("playlists", user.getPlaylists());
-	    } else {
+	    	//On vérifie que le user est bien un compte admin
+	    	if(user.getStatus().equals(Status.ADMIN)) {
+	    		model.addAttribute("user", user);
+		        model.addAttribute("playlists", user.getPlaylists());
+		        return "admin";
+	    	}
+	    	else {
+	    		return "redirect:/";
+	    	}
+	    } 
+	    else {
 	    	model.addAttribute("user",null);
 	    }
-	    return "admin";
+	    return "redirect:/";
 	}
 	
 
-    @PostMapping("/ajouterArtiste")
-    public String ajouterArtiste(Model model, @RequestParam("name") String name) {
-    	Artist artiste = new Artist();
-    	artiste.setName(name);
-    	artiste.setAlbums(new ArrayList<Album>());
-    	artiste.setSongs(new ArrayList<Song>());
-        artistRepository.save(artiste);
-        return "redirect:/admin";
-    }
-    
- 
-    
+	@PostMapping("/ajouterArtiste")
+	public String ajouterArtiste(Model model, @RequestParam("name") String name, @RequestParam("image") String imageUrl) {
+	    Artist artiste = new Artist();
+	    artiste.setName(name);
+
+	    //L'URL de l'image est directement récupérée depuis le formulaire
+	    artiste.setImage(imageUrl);
+
+	    
+	    artiste.setAlbums(new ArrayList<>());
+	    artiste.setSongs(new ArrayList<>());
+
+	    
+	    artistRepository.save(artiste);
+
+	    return "redirect:/admin";
+	}
+
+
     
     @DeleteMapping("/supprimerArtiste") 
     public String supprimerArtiste(Model model, @RequestParam("name") String name) {
         Artist artist = artistRepository.findByName(name);
         if (artist != null) {
         	artistRepository.delete(artist);
-        	//il faut aussi supprimer les références dans les autres tables
         }
         else {
         	model.addAttribute("error", "l'artiste saisit n'existe pas");
@@ -87,11 +105,11 @@ public class AdminController {
    
 
     @PostMapping("/ajouterAlbum")
-    public String ajouterAlbum(Model model,@RequestParam("name_album") String nameAlbum, @RequestParam("name_artists") String nameArtists,@RequestParam("name_songs") String nameSongs, @RequestParam("image") String image,RedirectAttributes redirectAttributes) { //à voir pour le type de image
+    public String ajouterAlbum(Model model,@RequestParam("name_album") String nameAlbum, @RequestParam("name_artists") String nameArtists,@RequestParam("name_songs") String nameSongs, @RequestParam("image") String imageUrl,RedirectAttributes redirectAttributes) { //à voir pour le type de image
     	try {
     	Album album =new Album();
     	album.setNom(nameAlbum);	//on remplit les paramètres de l'album
-    	album.setImage(image); //voir pour le type de image à l'affichage
+    	album.setImage(imageUrl); //voir pour le type de image à l'affichage
     	albumRepository.save(album);
     	
     	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +129,7 @@ public class AdminController {
                 artist.setAlbums(new ArrayList<Album>());
             	artist.setSongs(new ArrayList<Song>());
                 artistRepository.save(artist); 
+                artist.setImage(imageUrl);
             }
 
             artists.add(artist); //on l'ajoute à la liste des artistes de l'album
@@ -139,6 +158,7 @@ public class AdminController {
                 sg.setTitre(songName);
                 sg.setAlbum(album);
                 sg.setArtists(new ArrayList<>());
+                sg.setImage(imageUrl);
             }
             songRepository.save(sg);
             songs.add(sg); //On l'ajoute à la liste des musiques de l'album
@@ -185,13 +205,13 @@ public class AdminController {
     
 
     @PostMapping("/ajouterChanson")
-    public String ajouterChanson(Model model,@RequestParam("titre") String titre ,@RequestParam("name_artists") String nameArtists,@RequestParam("duree") int duree, @RequestParam("image") String image, RedirectAttributes redirectAttributes) {
+    public String ajouterChanson(Model model,@RequestParam("titre") String titre ,@RequestParam("name_artists") String nameArtists,@RequestParam("duree") int duree, @RequestParam("image") String imageUrl, RedirectAttributes redirectAttributes) {
     	try {
     		
     	Song chanson=new Song();
     	chanson.setTitre(titre);
         chanson.setDuree(duree);
-        chanson.setImage(image);
+        chanson.setImage(imageUrl);
         songRepository.save(chanson);
         
         List<String> artistNames = Arrays.stream(nameArtists.split(",")) // Pour découper la chaîne en une liste de noms d'artistes
@@ -209,6 +229,7 @@ public class AdminController {
                 artist.setName(artistName);
                 artist.setAlbums(new ArrayList<Album>());
             	artist.setSongs(new ArrayList<Song>());
+            	artist.setImage(imageUrl);
                  
             }
             artist.getSongs().add(chanson);
