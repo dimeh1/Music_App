@@ -34,10 +34,7 @@ public class MusicApplication implements ApplicationRunner{
 	UserRepository userRepository;
 	@Override
     public void run(ApplicationArguments args) throws Exception {
-<<<<<<< HEAD
-        
-		// Ajouter des artistes
-=======
+
 		//Ajouter des comptes admin
 		User admin1=new User();
 		admin1.setUsername("admin1");
@@ -49,7 +46,6 @@ public class MusicApplication implements ApplicationRunner{
 		
 		
         // Ajouter des artistes
->>>>>>> f8c19f81ca335e32b04c8bff2413606d29f0df76
         Artist artist1 = new Artist();
         artist1.setName("PNL");
         artist1.setImage("artist1.jpg");
