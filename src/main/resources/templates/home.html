@@ -107,7 +107,7 @@
             <!-- Artists Section -->
             <h2>Artists</h2>
             <div class="artists">
-                <div class="grid-item" th:each="artist : ${artists}">
+                <div class="grid-item artist-card" th:each="artist : ${artists}">
                     <img th:src="@{${artist.image}}" alt="artist image" class="artist-image"/>
                     <span th:text="${artist.name}">Artist Name</span>
                 </div>
@@ -116,7 +116,7 @@
             <!-- Albums Section -->
             <h2>Albums</h2>
             <div class="albums">
-                <div class="grid-item" th:each="album : ${albums}">
+                <div class="grid-item album-card" th:each="album : ${albums}">
                     <img th:src="@{${album.image}}" alt="album image" class="album-image"/>
                     <span th:text="${album.nom}">Album Title</span>
                 </div>

@@ -432,8 +432,21 @@ tbody tr:hover {
 
 tbody td {
     padding: 10px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
     color: #ffffff;
+}
+
+td.song-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-song-playlist {
+    width: 55px;
+    height: 55px;
+    border-radius: 5px;
 }
 
 .dropdown {
@@ -482,7 +495,6 @@ tbody td {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
 
 footer {
     background-color: #181818;
