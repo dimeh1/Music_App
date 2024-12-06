@@ -30,9 +30,10 @@ public class MusicApplication implements ApplicationRunner{
 	
 	@Override
     public void run(ApplicationArguments args) throws Exception {
-        // Ajouter des artistes
+        
+		// Ajouter des artistes
         Artist artist1 = new Artist();
-        artist1.setName("Me");
+        artist1.setName("PNL");
         artist1.setImage("artist1.jpg");
         
         Artist artist2 = new Artist();
