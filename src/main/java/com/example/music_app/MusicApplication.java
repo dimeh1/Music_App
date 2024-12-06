@@ -11,9 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.music_app.model.Album;
 import com.example.music_app.model.Artist;
 import com.example.music_app.model.Song;
+import com.example.music_app.model.Status;
+import com.example.music_app.model.User;
 import com.example.music_app.repository.AlbumRepository;
 import com.example.music_app.repository.ArtistRepository;
 import com.example.music_app.repository.SongRepository;
+import com.example.music_app.repository.UserRepository;
 
 @SpringBootApplication
 public class MusicApplication implements ApplicationRunner{
@@ -27,11 +30,26 @@ public class MusicApplication implements ApplicationRunner{
 	AlbumRepository albumRepository;
 	@Autowired
 	SongRepository songRepository;
-	
+	@Autowired
+	UserRepository userRepository;
 	@Override
     public void run(ApplicationArguments args) throws Exception {
+<<<<<<< HEAD
         
 		// Ajouter des artistes
+=======
+		//Ajouter des comptes admin
+		User admin1=new User();
+		admin1.setUsername("admin1");
+		admin1.setEmail("admin1@gmail.com");
+		admin1.setPassword("a");
+		admin1.setStatus(Status.ADMIN);
+		
+		userRepository.save(admin1);
+		
+		
+        // Ajouter des artistes
+>>>>>>> f8c19f81ca335e32b04c8bff2413606d29f0df76
         Artist artist1 = new Artist();
         artist1.setName("PNL");
         artist1.setImage("artist1.jpg");
