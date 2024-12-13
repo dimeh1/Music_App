@@ -107,7 +107,7 @@ public class MusicApplication implements ApplicationRunner{
         albumDrake.setDate_sortie(java.time.LocalDate.of(2021, 8, 15));
         albumDrake.setArtists(Arrays.asList(drake));
         Album albumDJSnake = new Album();
-        albumDJSnake.setNom("Album 2");
+        albumDJSnake.setNom("CarteBlanche");
         albumDJSnake.setImage("/img/albums/carte_blanche_DJSnake.JPG");
         albumDJSnake.setDate_sortie(java.time.LocalDate.of(2021, 8, 15));
         albumDJSnake.setArtists(Arrays.asList(djSnake));
@@ -230,7 +230,7 @@ public class MusicApplication implements ApplicationRunner{
         songSomeoneLike.setGenre(com.example.music_app.model.Genre.JAZZ);
         Song songLikeaToo = new Song();
         songLikeaToo.setTitre("Like a Tatoo");
-        songLikeaToo.setImage("img/albums/the_best_of_sade_Sade.JPG");
+        songLikeaToo.setImage("/img/albums/the_best_of_sade_Sade.JPG");
         songLikeaToo.setDuree(200);
         songLikeaToo.setAlbum(albumSade);
         songLikeaToo.setArtists(Arrays.asList(sade));

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Menu</title>
-    <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/player.css">
+	<meta charset="UTF-8">
+	<title>Album</title>
+	<link rel="stylesheet" href="/css/song.css">
 </head>
 <body>
     <header>
@@ -17,7 +16,6 @@
                 <input type="text" name="query" placeholder="Search for music...">
             </form>
         </div>
-        <a href="/settings" class="settings">Settings</a>
         
         <!-- Gestion de la connexion / déconnexion -->
         <div class="auth-links" th:if="${session.loggedIn == null || !session.loggedIn}">
@@ -47,7 +45,7 @@
                 </div>
             </div>
             
-			<!-- Modal d'ajout de Playlist -->
+            <!-- Modal d'ajout de Playlist -->
 			<div id="playlistModal" class="modal">
     			<div class="modal-content add-playlist-modal">
         			<span class="close" onclick="closeModal()">&times;</span>
@@ -80,10 +78,11 @@
 			<nav class="sidebar">
     			<div th:if="${session.loggedIn}">
         			<!-- Vérifie si l'utilisateur a des playlists -->
-        			<ul th:if="${playlists != null && !playlists.isEmpty()}">
+                    <ul th:if="${playlists != null && !playlists.isEmpty()}">
     					<li th:each="playlist : ${playlists}" 
         					class="playlist-item"
-        					th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
+        					th:attr="onclick=|redirectToPlaylist(${playlist.id})|"
+        					th:classappend="${playlist.id == selectedPlaylistId ? 'grayed-out' : ''}">
         					
         					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id != 1}">
         					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id == 1}">
@@ -101,73 +100,67 @@
 
         </div>
         
-<div class="content-container">
-    <main class="main-content">
-        <section class="content-area">
-            
-            <!-- Artists Section -->
-            <h2>Artists</h2>
-            <div class="artists">
-                <div class="grid-item artist-card" th:each="artist : ${artists}">
-                    <img th:src="@{${artist.image}}" alt="artist image" class="artist-image"/>
-                    <span th:text="${artist.name}">Artist Name</span>
+        <div class="content-container">
+            <main class="main-content">
+				<div class="main-head">
+    				<img th:src="@{${album.image}}" alt="Song Image" class="song-main-image">
+    				<div class="song-info">
+        				<h4>Album</h4>
+        				<h1 th:text="${album.nom}">Album nom</h1>
+    				</div>
+				</div>
+
+            	<table>
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Artiste(s)</th>
+                            <th>Durée</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+					<tbody>
+    					 <!-- Parcours des musiques de l'album -->
+        <tr th:each="song : ${album.songs}"
+        	th:onclick="|redirectToSong(${song.id})|"
+        	class="clickable-row">
+            <td class="song-cell">
+                <img alt="Song Image" th:src="@{${song.image}}" class="image-song-playlist">
+                <span class="song-title" th:text="${song.titre}">Titre</span>
+            </td>
+            <td>
+                <!-- Parcours des artistes associés à chaque musique -->
+                <span th:each="artist, iterStat : ${song.artists}">
+                    <span th:text="${artist.name}"></span>
+                    <span th:if="${!iterStat.last}">, </span>
+                </span>
+            </td>
+            <td th:text="${song.duree}">Durée</td>
+            <td>
+                <!-- Menu déroulant pour ajouter la musique à une playlist -->
+                <div class="dropdown">
+                    <button class="dropbtn">...</button>
+                    <div class="dropdown-content">
+                        <form th:each="playlist : ${playlists}" th:action="@{/add-song-to-playlist}" method="post">
+                            <input type="hidden" name="songId" th:value="${song.id}">
+                            <input type="hidden" name="playlistId" th:value="${playlist.id}">
+                            <button type="submit" th:text="${playlist.name}"></button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </td>
+        </tr>
+					</tbody>
 
-            <!-- Albums Section -->
-            <h2>Albums</h2>
-            <div class="albums">
-                <div class="grid-item album-card" th:each="album : ${albums}" th:attr="onclick=|redirectToAlbum(${album.id})|">
-                    <img th:src="@{${album.image}}" alt="album image" class="album-image"/>
-                    <span th:text="${album.nom}">Album Title</span>
-                </div>
-            </div>
-
-            <!-- Songs Section -->
-            <h2>Songs</h2>
-            <div class="songs">
-                <div class="grid-item song-card" th:each="song : ${songs}" th:attr="onclick=|redirectToSong(${song.id})|">
-                	<img th:src="@{${song.image}}" alt="song image" class="song-image"/>
-                    <span th:text="${song.titre}">Song Title</span>
-                </div>
-            </div>
-
-        </section>
-
-    </main>
-</div>
-
-	
-
-
+                </table>
+            </main>
+        </div>
     </div>
-    
+     
     <footer>
         <!-- Footer content -->
-        <div class="music-player">
-            <div class="progress-wrapper">
-                <div class="progress-bar"></div>
-            </div>
-            <div class="times-row">
-                <div class="start-time">0:00</div>
-                <div class="current-song">Current Song</div>
-                <div class="end-time">3:48</div>
-            </div>
-            <div class="player-actions">
-                <button class="action-button">
-                    <i class="material-icons">skip_previous</i>
-                </button>
-                <button class="play-button">
-                    <i class="material-icons">play_arrow</i>
-                </button>
-                <button class="action-button">
-                    <i class="material-icons">skip_next</i>
-                </button>
-            </div>
-        </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/player.js"></script>
+    
     <script src="/js/playlist.js"></script>
     <script src="/js/pageHandling.js"></script>
 </body>

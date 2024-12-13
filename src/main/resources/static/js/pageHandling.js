@@ -5,3 +5,8 @@ function redirectToPlaylist(playlistId) {
 function redirectToSong(songId) {
     window.location.href = '/song/' + songId;
 }
+
+function redirectToAlbum(albumId) {
+	window.location.href = '/album/' + albumId;
+}
+

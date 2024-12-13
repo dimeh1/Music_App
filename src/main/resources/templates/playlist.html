@@ -124,23 +124,34 @@
                             <th>Artiste(s)</th>
                             <th>Album</th>
                             <th>Durée</th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="song, stat : ${songs}">
+                        <tr th:each="song, stat : ${songs}"
+                        	th:onclick="|redirectToSong(${song.id})|"
+        					class="clickable-row">
                             <td th:text="${stat.index + 1}"></td>
                             <td class="song-cell"> <!-- Classe ajoutée pour styler l'image et le titre -->
                 				<img alt="Song Image" th:src="@{${song.image}}" class="image-song-playlist">
                 				<span class="song-title" th:text="${song.titre}">Titre</span>
             				</td>
             				<td>
-            					<span th:each="artist, iterStat : ${artists}">
+            					<span th:each="artist, iterStat : ${song.artists}">
                 					<span th:text="${artist.name}"></span>
                 					<span th:if="${!iterStat.last}">, </span>
             					</span>
         					</td>
                             <td th:text="${song.album.nom}">Album</td>
                             <td th:text="${song.duree}">Durée</td>
+                            <td>
+            					<!-- Bouton pour supprimer la musique de la playlist -->
+            					<form th:action="@{/remove-song}" method="post">
+                					<input type="hidden" name="songId" th:value="${song.id}">
+                					<input type="hidden" name="playlistId" th:value="${playlist.id}">
+                					<button type="submit" class="delete-button">X</button>
+            					</form>
+        					</td>
                         </tr>
                     </tbody>
                 </table>
