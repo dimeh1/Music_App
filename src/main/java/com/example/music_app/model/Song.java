@@ -37,9 +37,9 @@ public class Song {
 	
 	@ManyToOne
 	private Album album;
-	
+
 	private String image;
-	
+
 	@ManyToMany
 	@JoinTable(
 	        name = "song_artists",
@@ -47,16 +47,16 @@ public class Song {
 	        inverseJoinColumns = @JoinColumn(name = "artist_id")
 	    )
 	private List<Artist> artists;
-	
+
 	@ManyToMany(mappedBy = "songs")
 	private List<Playlist> playlists;
-	
+
 	@OneToMany(mappedBy ="song")
 	private List<Like> likes;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Genre genre;
-	
+
 	private String chemin_audio;
 	
 	
@@ -148,6 +148,6 @@ public class Song {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
+
+
 }
