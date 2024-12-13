@@ -84,8 +84,8 @@
 
 			
 			<!-- Formulaire de l'album -->
-			<div id="albumModalAjouterAlbum" class="modal">
-    			<div class="modal-content">
+			<div id="albumModalAjouterAlbum" class="modalalbum ">
+    			<div class="modalalbum-content">
         	<span class="close" onclick="closeModalAjouterAlbum()">&times;</span>
         		<h2>Ajouter un album</h2>
         		<form th:action="@{/ajouterAlbum}" method="post">
@@ -112,25 +112,28 @@
     	<div class="modal-content">
         	<span class="close" onclick="closeModalAjouterSong()">&times;</span>
         	<h2>Ajouter une chanson</h2>
-       	 	<form th:action="@{/ajouterChanson}" method="post">  
+       	 	<form th:action="@{/ajouterChanson}" method="post" enctype="multipart/form-data">
             	<label for="titre">Nom de la musique</label>
             	<input type="text" id="titre" name="titre" placeholder="Nom de la musique" required>
-            	
+
             	<label for="name_artists">Noms des artistes (séparés par des virgules) :</label>
     			<input type="text" id="name_artists" name="name_artists" placeholder="Artiste 1, Artiste 2, ..." required />
-            	
+
             	<label for="duree">Durée (en secondes)</label>
             	<input type="text" id="duree" name="duree" placeholder="Durée s" required>
-            	
+
             	<label for="image">URL de l'image de la musique</label>
             	<input type="text" id="image" name="image" placeholder="https://example.com/cover.jpg" required>
-            	
+
+                <label for="file">Selectionner le fichier Audio :</label>
+                <input type="file" name="file" id="file" accept=".mp3,.wav" required>
+
             	<button type="submit">Ajouter chanson</button>
         		</form>
     		</div>
 		</div>
-		
-			
+
+
 		<!-- Formulaire de suppression d'artiste -->
     	<div id="artistModalSupprimerArtist" class="modal">  <!-- refaire une classe css pour chaque formulaire -->
     <div class="modal-content">

@@ -1,6 +1,7 @@
 package com.example.music_app.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -201,52 +202,103 @@ public class AdminController {
     	}
         return "redirect:/admin";
     }
-    
-    
 
-    @PostMapping("/ajouterChanson")
-    public String ajouterChanson(Model model,@RequestParam("titre") String titre ,@RequestParam("name_artists") String nameArtists,@RequestParam("duree") int duree, @RequestParam("image") String imageUrl, RedirectAttributes redirectAttributes) {
-    	try {
-    		
-    	Song chanson=new Song();
-    	chanson.setTitre(titre);
-        chanson.setDuree(duree);
-        chanson.setImage(imageUrl);
-        songRepository.save(chanson);
-        
-        List<String> artistNames = Arrays.stream(nameArtists.split(",")) // Pour découper la chaîne en une liste de noms d'artistes
-                .map(String::trim) // Supprimer les espaces inutiles
-                .filter(name -> !name.isEmpty()) // Filtrer les noms vides
-                .collect(Collectors.toList());
-        
-        List<Artist> artists = new ArrayList<>();
-        
-        for (String artistName : artistNames) {
-            Artist artist = artistRepository.findByName(artistName); //On vérifie que l'artiste existe déjà
 
-            if (artist == null) {	//Si l'artiste n'existe pas on en crée un nouveau
-                artist = new Artist();
-                artist.setName(artistName);
-                artist.setAlbums(new ArrayList<Album>());
-            	artist.setSongs(new ArrayList<Song>());
-            	artist.setImage(imageUrl);
-                 
+
+
+        @PostMapping("/ajouterChanson")
+        public String ajouterChanson(Model model,
+                                     @RequestParam("titre") String titre,
+                                     @RequestParam("name_artists") String nameArtists,
+                                     @RequestParam("image") String imageUrl,
+                                     @RequestParam("duree") int duree,
+                                     @RequestParam("file") MultipartFile file,
+                                     RedirectAttributes redirectAttributes) {
+
+            String fileName = file.getOriginalFilename();
+            fileName = fileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+            String uploadDir = "src/main/resources/static/audio/";
+
+            try {
+                // Step 1: Check if the song already exists
+                Song existingSong = songRepository.findByTitre(titre);
+                if (existingSong != null) {
+                    redirectAttributes.addFlashAttribute("error", "A song with this title already exists!");
+                    return "redirect:/admin";
+                }
+
+                // Step 2: Handle album reuse or creation
+                Album album = albumRepository.findByNom(titre); // Try to find an existing album with the same name
+                if (album == null) {
+                    album = new Album();
+                    album.setNom(titre);
+                    album.setImage(imageUrl);
+                    album.setArtists(new ArrayList<>()); // Initialize artists list
+                    album.setSongs(new ArrayList<>());   // Initialize songs list
+                    albumRepository.save(album); // Save album to ensure it's persisted
+                }
+
+                // Step 3: Create the new song
+                Song chanson = new Song();
+                chanson.setTitre(titre);
+                chanson.setImage(imageUrl);
+                chanson.setDuree(duree);
+                chanson.setChemin_audio(uploadDir + fileName);
+                chanson.setAlbum(album); // Associate the album
+
+                // Step 4: Handle artists
+                List<String> artistNames = Arrays.stream(nameArtists.split(","))
+                        .map(String::trim)
+                        .filter(name -> !name.isEmpty())
+                        .collect(Collectors.toList());
+
+                List<Artist> artists = new ArrayList<>();
+                for (String artistName : artistNames) {
+                    Artist artist = artistRepository.findByName(artistName);
+                    if (artist == null) {
+                        artist = new Artist();
+                        artist.setName(artistName);
+                        artist.setImage(imageUrl); // Use the same image for simplicity
+                        artist.setAlbums(new ArrayList<>());
+                        artist.setSongs(new ArrayList<>());
+                    }
+                    // Add song to artist and save
+                    artist.getSongs().add(chanson);
+                    artistRepository.save(artist);
+                    artists.add(artist);
+                }
+
+                // Step 5: Finalize associations
+                album.getSongs().add(chanson); // Add song to album
+                album.getArtists().addAll(artists); // Add artists to album
+                chanson.setArtists(artists); // Associate artists with the song
+
+                // Save everything
+                songRepository.save(chanson);
+
+                // Step 6: Upload the file
+                File dir = new File(uploadDir);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                File destinationFile = new File(uploadDir + fileName);
+                try (FileOutputStream fos = new FileOutputStream(destinationFile)) {
+                    fos.write(file.getBytes());
+                }
+
+                System.out.println("File uploaded: " + uploadDir + fileName);
+
+            } catch (IOException e) {
+                redirectAttributes.addFlashAttribute("error", "Error uploading the song");
+                e.printStackTrace();
+            } catch (Exception e) {
+                redirectAttributes.addFlashAttribute("error", "Error adding the song");
+                e.printStackTrace();
             }
-            artist.getSongs().add(chanson);
-            artistRepository.save(artist);
-            
-            artists.add(artist); //on l'ajoute à la liste des artistes de la musique
+
+            return "redirect:/admin";
         }
-        chanson.setArtists(artists);
-        
-        songRepository.save(chanson);
-        
-        redirectAttributes.addFlashAttribute("success", "musique ajoutée avec succès !");
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", "Erreur lors de l'ajout de la musique");
-    }
-        return "redirect:/admin";
-    }
 
     @DeleteMapping("/supprimerChanson")
     public String supprimerChanson(Model model, @RequestParam("name") String name) {
@@ -275,8 +327,11 @@ public class AdminController {
         }
         return "redirect:/admin";
     }
-    
-    
-    
+
+
+
+
+
+
 
 }
