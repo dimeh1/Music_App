@@ -54,16 +54,16 @@ public class HomeController {
         Collections.shuffle(artists);
         Collections.shuffle(albums);
         Collections.shuffle(songs);
-	    
-	    // Limiter le nombre d'éléments à afficher (par exemple 5)
-	    List<Artist> limitedArtists = artists.stream().limit(5).collect(Collectors.toList());
-	    List<Album> limitedAlbums = albums.stream().limit(5).collect(Collectors.toList());
-	    List<Song> limitedSongs = songs.stream().limit(5).collect(Collectors.toList());
+//	    
+//	    // Limiter le nombre d'éléments à afficher (par exemple 5)
+//	    List<Artist> limitedArtists = artists.stream().limit(5).collect(Collectors.toList());
+//	    List<Album> limitedAlbums = albums.stream().limit(5).collect(Collectors.toList());
+//	    List<Song> limitedSongs = songs.stream().limit(5).collect(Collectors.toList());
 
 	    // Ajouter ces éléments au modèle
-	    model.addAttribute("artists", limitedArtists);
-	    model.addAttribute("albums", limitedAlbums);
-	    model.addAttribute("songs", limitedSongs);
+	    model.addAttribute("artists", artists);
+	    model.addAttribute("albums", albums);
+	    model.addAttribute("songs", songs);
 
 	    return "home";
 	}

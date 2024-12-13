@@ -1,6 +1,6 @@
 package com.example.music_app.controller;
 
-import com.example.music_app.model.Settings;
+import com.example.music_app.model.*;
 import com.example.music_app.repository.SettingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.music_app.model.Playlist;
-import com.example.music_app.model.Status;
-import com.example.music_app.model.User;
 import com.example.music_app.repository.PlaylistRepository;
 import com.example.music_app.repository.UserRepository;
 
@@ -50,7 +47,7 @@ public class LoginController {
 		if (email != null && password != null) {
 			
 			//connexion admin
-			if(userRepository.findByEmail(email).isPresent() && userRepository.findByEmail(email).get().getPassword().equals("a")) {
+			if(userRepository.findByEmail(email).isPresent() && password.equals(userRepository.findByEmail(email).get().getPassword())) {
 				session.setAttribute("loggedIn", true);
 				session.setAttribute("user", userRepository.findByEmail(email).get());
 				session.setAttribute("email", userRepository.findByEmail(email).get());
@@ -94,6 +91,7 @@ public class LoginController {
 				user.setStatus(Status.GUEST);
 
 				Settings settings = new Settings();
+				settings.setTheme(Theme.DARK);
 				user.setSettings(settings);
 
 

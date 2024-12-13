@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil</title>
+    <title>Menu</title>
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/player.css">
 </head>
@@ -12,27 +12,24 @@
             <img src="/img/logo.png">
         </div>
         <div class="recherche">
-            <a href="/" class="home">Home</a>
-            <form action="/search" method="get">
-                <input type="text" name="query" placeholder="Search for music...">
-            </form>
+            <a href="/" class="home">Accueil</a>
         </div>
-        <a href="/settings" class="settings">Settings</a>
+        <a href="/settings" class="settings">Paramètres</a>
         
         <!-- Gestion de la connexion / déconnexion -->
         <div class="auth-links" th:if="${session.loggedIn == null || !session.loggedIn}">
             <form action="/signup" method="get">
-                <button type="submit">Signup</button>
+                <button type="submit">S'inscrire</button>
             </form>
             <form action="/login" method="get">
-                <button type="submit">Login</button>
+                <button type="submit">Se connecter</button>
             </form>
         </div>
 
         <div class="auth-links" th:if="${session.loggedIn}">
             <p th:text="'Bienvenue, ' + ${user.username} + ' !'"></p>
             <form action="/logout" method="get">
-                <button type="submit">Logout</button>
+                <button type="submit">Déconnexion</button>
             </form>
         </div>
     </header>
@@ -85,8 +82,8 @@
         					class="playlist-item"
         					th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
         					
-        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id != 1}">
-        					<img th:src="@{${playlist.image}}" alt="Playlist Image" class="playlist-image" th:if="${playlist.id == 1}">
+        					<img th:src="@{${playlist.image}}" alt="Image de la playlist" class="playlist-image" th:if="${playlist.id != 1}">
+        					<img th:src="@{${playlist.image}}" alt="Image de la playlist" class="playlist-image" th:if="${playlist.id == 1}">
         					<span th:text="${playlist.name}">Playlist</span>
         					
         					<button type="button" class="delete-button" th:if="${playlist.id != 1}" th:onclick="|openDeleteModal(${playlist.id})|">X</button>
@@ -101,44 +98,41 @@
 
         </div>
         
-<div class="content-container">
-    <main class="main-content">
-        <section class="content-area">
-            
-            <!-- Artists Section -->
-            <h2>Artists</h2>
-            <div class="artists">
-                <div class="grid-item artist-card" th:each="artist : ${artists}">
-                    <img th:src="@{${artist.image}}" alt="artist image" class="artist-image"/>
-                    <span th:text="${artist.name}">Artist Name</span>
-                </div>
-            </div>
+        <div class="content-container">
+            <main class="main-content">
+                <section class="content-area">
+                    
+                    <!-- Artists Section -->
+                    <h2>Artistes</h2>
+                    <div class="artists">
+                        <div class="grid-item artist-card" th:each="artist : ${artists}">
+                            <img th:src="@{${artist.image}}" alt="image de l'artiste" class="artist-image"/>
+                            <span th:text="${artist.name}">Nom de l'Artiste</span>
+                        </div>
+                    </div>
 
-            <!-- Albums Section -->
-            <h2>Albums</h2>
-            <div class="albums">
-                <div class="grid-item album-card" th:each="album : ${albums}">
-                    <img th:src="@{${album.image}}" alt="album image" class="album-image"/>
-                    <span th:text="${album.nom}">Album Title</span>
-                </div>
-            </div>
+                    <!-- Albums Section -->
+                    <h2>Albums</h2>
+                    <div class="albums">
+                        <div class="grid-item album-card" th:each="album : ${albums}" th:attr="onclick=|redirectToAlbum(${album.id})|">
+                            <img th:src="@{${album.image}}" alt="image de l'album" class="album-image"/>
+                            <span th:text="${album.nom}">Titre de l'Album</span>
+                        </div>
+                    </div>
 
-            <!-- Songs Section -->
-            <h2>Songs</h2>
-            <div class="songs">
-                <div class="grid-item song-card" th:each="song : ${songs}" th:attr="onclick=|redirectToSong(${song.id})|">
-                	<img th:src="@{${song.image}}" alt="song image" class="song-image"/>
-                    <span th:text="${song.titre}">Song Title</span>
-                </div>
-            </div>
+                    <!-- Songs Section -->
+                    <h2>Chansons</h2>
+                    <div class="songs">
+                        <div class="grid-item song-card" th:each="song : ${songs}" th:attr="onclick=|redirectToSong(${song.id})|">
+                        	<img th:src="@{${song.image}}" alt="image de la chanson" class="song-image"/>
+                            <span th:text="${song.titre}">Titre de la Chanson</span>
+                        </div>
+                    </div>
 
-        </section>
+                </section>
 
-    </main>
-</div>
-
-	
-
+            </main>
+        </div>
 
     </div>
     
@@ -150,7 +144,7 @@
             </div>
             <div class="times-row">
                 <div class="start-time">0:00</div>
-                <div class="current-song">Current Song</div>
+                <div class="current-song">Chanson en cours</div>
                 <div class="end-time">3:48</div>
             </div>
             <div class="player-actions">

@@ -131,47 +131,45 @@ public class PlaylistController {
 	    return "redirect:/";
 	}
 
-	//Suppression d'une musique dans une playlist
 	@PostMapping("remove-song")
-	public String removeSongFromPlaylist(Model model, @RequestParam("songId") Long songid, @RequestParam("playlistId") Long playlistId, HttpSession session) {
-		if (session.getAttribute("loggedin") != null && (boolean) session.getAttribute("loggedIn")) {
-			User user = (User) session.getAttribute("user");
-			
-			Optional<Song> songOptional = songRepository.findById(songid);
-			if (songOptional.isPresent()) {
-				Song song = songOptional.get();
-				Optional<Playlist> playlistOptional = playlistRepository.findByIdAndUser(playlistId, user);
-				
-				if (playlistOptional.isPresent()) {
-					Playlist playlist = playlistOptional.get();
-					
-					if (playlist.getSongs().contains(song)) {
-							
-						playlist.getSongs().remove(song);
-						song.getPlaylists().remove(playlist);
-							
-						playlistRepository.save(playlist);
-						songRepository.save(song);
-							
-						return "redirect:/playlist/" + playlistId;
-					}
-					else {
-						model.addAttribute("error", "La musique n'est pas présente dans cette playlist");
-					}
-				}
-				else {
-					model.addAttribute("error", "La playlist est introuvable.");
-				}
-			}
-			else {
-				model.addAttribute("error", "Musique non trouvée.");
-			}
-		}
-		else {
-			model.addAttribute("error", "Vous devez être connecté pour ajouter une musique à votre playlist.");
-		}
-		return "redirect:/";
+	public String removeSongFromPlaylist(Model model, 
+	                                     @RequestParam("songId") Long songId, 
+	                                     @RequestParam("playlistId") Long playlistId, 
+	                                     HttpSession session) {
+	    if (session.getAttribute("loggedIn") != null && (boolean) session.getAttribute("loggedIn")) {
+	        User user = (User) session.getAttribute("user");
+	        
+	        Optional<Song> songOptional = songRepository.findById(songId);
+	        if (songOptional.isPresent()) {
+	            Song song = songOptional.get();
+	            Optional<Playlist> playlistOptional = playlistRepository.findByIdAndUser(playlistId, user);
+	            
+	            if (playlistOptional.isPresent()) {
+	                Playlist playlist = playlistOptional.get();
+	                
+	                if (playlist.getSongs().contains(song)) {
+	                    playlist.getSongs().remove(song);
+	                    song.getPlaylists().remove(playlist);
+	                    
+	                    playlistRepository.save(playlist);
+	                    songRepository.save(song);
+	                    
+	                    return "redirect:/playlist/" + playlistId;
+	                } else {
+	                    model.addAttribute("error", "La musique n'est pas présente dans cette playlist.");
+	                }
+	            } else {
+	                model.addAttribute("error", "La playlist est introuvable.");
+	            }
+	        } else {
+	            model.addAttribute("error", "Musique non trouvée.");
+	        }
+	    } else {
+	        model.addAttribute("error", "Vous devez être connecté pour effectuer cette action.");
+	    }
+	    return "redirect:/";
 	}
+
 	
 	//Suppression de la playlist
 	@PostMapping("/delete-playlist")

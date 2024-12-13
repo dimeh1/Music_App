@@ -45,6 +45,12 @@ header {
     width: 500px;
 }
 
+.settings {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
 .auth-links {
     display: flex;
     gap: 20px;
@@ -82,7 +88,7 @@ header {
 }
 
 .sidebar {
-	overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 .head-playlist {
@@ -94,11 +100,11 @@ header {
 }
 
 .head-playlist h3 {
-	margin: 0px;
-	font-size: 30px;
+    margin: 0px;
+    font-size: 30px;
 }
 
-/*Petite fenêtre pour l'ajout d'un playlist*/
+/*Petite fenêtre dynamique avec JS*/
 .modal {
     display: none;
     position: fixed;
@@ -196,8 +202,6 @@ header {
     justify-content: center;
 }
 
-
-
 .modal-actions {
     display: flex;
     gap: 20px;
@@ -214,70 +218,14 @@ header {
     cursor: pointer;
 }
 
-
-
 .confirm-btn:hover {
-	background-color: #555;
+    background-color: #555;
     transform: scale(1.1);
 }
 
 .cancel-btn:hover {
     background-color: #555;
     transform: scale(1.1);
-}
-
-/* Styles pour la modale */
-.update-playlist-modal {
-	width: 500px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.update-playlist-modal h2 {
-	font-size: 30px;
-	margin: 0px;
-	padding-bottom: 0px;
-	padding-top: 30px;
-}
-#currentImage {
-	border-radius: 8px;
-    width: 200px;  /* Ajustez la taille de l'image à vos besoins */
-    height: 200px;
-    object-fit: cover;  /* Assurez-vous que l'image ne soit pas déformée */
-    display: block;
-    margin: 10px auto;  /* Centrez l'image */
-}
-
-/* Conteneur pour l'image et les informations de la playlist */
-.form-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-}
-
-/* Partie gauche pour l'image */
-.left {
-    text-align: center;
-    width: 40%;
-}
-
-/* Partie droite pour les informations de la playlist */
-.right {
-    width: 55%;
-    text-align: center;
-}
-
-#updateName{
-	font-size: 25px;
-}
-
-.right button {
-	font-size: 20px !important;
 }
 
 /*############################################*/
@@ -307,7 +255,7 @@ header {
     align-items: center;
     margin: 10px 0;
     border: 1px solid white;
-    padding: 15px;
+    padding: 30px;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -317,30 +265,12 @@ header {
     background-color: rgba(240, 240, 240, 0.3);
 }
 
-.playlist-image {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    margin-right: 10px;
-}
-
-.playlist-main-image:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-.playlist-item span {
-    flex-grow: 1;
-    text-align: center;
-}
-
 .sidebar .delete-button {
-	font-weight: bold;
-    visibility: hidden;
-    width: 20px;
-    text-align: center;
+    font-weight: bold;
+    padding: 0;
+    display: none;
     border: none;
-    background: transparent;
+    background-color: transparent;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -348,27 +278,9 @@ header {
 }
 
 .sidebar li:hover .delete-button {
-    visibility: visible;
+    display: block;
 }
 
-.delete-button {
-	font-weight: bold;
-	visibility: hidden;
-    background: transparent;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-	visibility: visible;
-    color: red;
-}
 
 .sidebar .delete-button:hover {
     color: red;
@@ -379,106 +291,87 @@ header {
     padding: 0;
 }
 
-.grayed-out {
-    background-color: rgba(240, 240, 240, 0.3);
-    color: white;
-}
-
 .content-container {
     flex: 1;
     padding: 20px;
     background-color: #101011;
     border-radius: 10px;
-    overflow-y:scroll;
+    overflow-y: auto; /* Permet le défilement vertical uniquement dans ce conteneur */
+    max-height: 80vh; /* Définit une hauteur maximale pour activer le défilement */
 }
 
-.main-head {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    text-align: left;
+h2 {
+    font-size: 1.8rem;
     margin-bottom: 20px;
-}
-
-.playlist-main-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-.playlist-info h1 {
-    font-size: 100px;
-    margin: 5px 0;
-    color: white;
-}
-
-.playlist-info h4 {
-    font-size: 17px;
-    margin: 5px 0;
-    color: #b3b3b3;
-}
-
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-thead {
-    background-color: #282828;
-}
-
-thead th {
-    text-align: left;
-    padding: 10px;
-    font-weight: normal;
-    color: #b3b3b3;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-tbody tr {
-    border-bottom: 1px solid #404040; /* Ligne de séparation entre les chansons */
-    transition: background-color 0.3s ease;
-}
-
-tbody tr:hover{
-    background-color: #333333; /* Survol */
-}
-
-tbody tr:hover .delete-button{
-	visibility: visible;
-}
-
-tbody td {
-    padding: 10px;
-    font-size: 18px;
     font-weight: bold;
-    color: #ffffff;
+    color: #fff;
 }
 
-.clickable-row {
-    cursor: pointer;
-}
-
-
-td.song-cell {
+/* Grille flexible pour les artistes, albums et chansons */
+.artists, .albums, .songs {
+    margin-top: 15px;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: nowrap;  /* Les éléments seront alignés sur une ligne */
+    overflow-x: auto;   /* Permet un défilement horizontal si nécessaire */
+    gap: 20px; /* Espacement entre les éléments */
 }
 
-.image-song-playlist {
-    width: 55px;
-    height: 55px;
-    border-radius: 5px;
+/* Chaque élément (artist, album, song) sera un carré */
+.grid-item {
+    flex-shrink: 0; /* Empêche la réduction de taille des éléments */
+    width: 200px;   /* Largeur fixe pour chaque élément */
+    height: 250px;  /* Hauteur ajustée pour laisser de l'espace sous l'image */
+    text-align: center;
+    background-color: #1f1f1f;
+    padding: 15px;
+    border-radius: 10px;
+    color: #fff;
+    overflow: hidden; /* Pour éviter que l'image dépasse du bloc */
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Organise le contenu en colonne */
+    justify-content: space-between; /* Espace entre l'image et le texte */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.song-title {
-    margin: 0;
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
+
+/* Ajustements spécifiques aux images des artistes et albums */
+.artist-image, .album-image {
+    width: 100%;
+    height: 150px; /* Fixe la hauteur de l'image */
+    object-fit: cover; /* Remplir le carré sans distorsion */
+    border-radius: 10px;
+}
+
+/* Texte pour les artistes, albums et chansons */
+.grid-item span {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Responsivité : s'assurer que l'affichage reste propre sur mobile */
+@media (max-width: 768px) {
+    .artists, .albums, .songs {
+        flex-direction: column; /* Les éléments passent en colonne sur mobile */
+        align-items: center;
+    }
+
+    .grid-item {
+        width: 80%; /* Plus large sur mobile */
+        height: 250px; /* Ajuster la taille sur mobile */
+        margin-bottom: 20px; /* Espacement vertical entre les éléments */
+    }
+}
+
+
 
 footer {
     background-color: #181818;
@@ -506,4 +399,19 @@ footer {
 
 .controls button:hover {
     background-color: #1aa34a;
+}
+
+.theme-selector {
+    margin-top: 20px;
+}
+
+.theme-selector label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.theme-selector select {
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
 }

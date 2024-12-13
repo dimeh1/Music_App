@@ -49,6 +49,7 @@ header {
     color: #ffffff;
     text-decoration: none;
     margin: 0 15px;
+    font-size: 20px;
 }
 
 .auth-links {
@@ -317,6 +318,32 @@ header {
     overflow-y: auto; /* Permet le défilement vertical uniquement dans ce conteneur */
     max-height: 80vh; /* Définit une hauteur maximale pour activer le défilement */
 }
+
+.slider-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.slider-item {
+    display: inline-block;
+    margin-right: 16px; /* espace entre les éléments */
+}
+.arrow-left, .arrow-right {
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.arrow-left {
+    left: 0;
+}
+.arrow-right {
+    right: 0;
+}
+
 
 h2 {
     font-size: 1.8rem;
