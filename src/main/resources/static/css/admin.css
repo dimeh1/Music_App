@@ -373,18 +373,7 @@ header {
     color: #ddd;
 }
 
-/***************************************************************************/
-.modalalbum {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-
+/*******************************************************************************************************/
 .modalmusique {
     display: none;
     position: fixed;
@@ -394,26 +383,16 @@ header {
     width: 100%;
     height: 100%;
     overflow: auto;
+    
 }
 
-.modaluser {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-
-.modal-content {
+.modalmusique-content {
     background-color: black;
     border: 2px solid white;
     margin: auto;
     padding: 0px;
-    width: 300px;
-    height: 300px;
+    width: 600px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -422,15 +401,16 @@ header {
     position: relative;
     top: 50%;
     transform: translateY(-75%);
+    
 }
 
-.modal-content h2 {
+.modalmusique-content h2 {
     font-size: 30px;
     padding-bottom: 10px;
     text-align: center;
 }
 
-.modal-content form {
+.modalmusique-content form {
     margin: 15px;
     display: flex;
     flex-direction: column;
@@ -438,13 +418,13 @@ header {
     padding-bottom: 10px;
 }
 
-.modal-content form label {
+.modalmusique-content form label {
     font-size: 18px;
     padding-bottom: 10px;
     text-align: center;
 }
 
-.modal-content form input {
+.modalmusique-content form input {
     font-size: 18px;
     background-color: black;
     border: 1px solid white;
@@ -454,7 +434,7 @@ header {
     width: 80%;
 }
 
-.modal-content form button {
+.modalmusique-content form button {
     background-color: black;
     border: 1px solid white;
     border-radius: 5px;
@@ -464,7 +444,7 @@ header {
     cursor: pointer;
 }
 
-.modal-content button {
+.modalmusique-content button {
     font-size: 15px;
     margin-top: 40px;
 }
@@ -483,6 +463,9 @@ header {
 .close:focus {
     color: #ddd;
 }
+
+
+
 /*############################################*/
 
 .add-playlist button{

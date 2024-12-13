@@ -2,6 +2,8 @@ package com.example.music_app.controller;
 
 import com.example.music_app.model.Settings;
 import com.example.music_app.repository.SettingsRepository;
+import jakarta.servlet.http.HttpSession;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,8 @@ public class SettingsController {
     SettingsRepository settingsRepository;
 
     @GetMapping("/settings")
-    public String settingsPage(Model model) {
-        //model.addAttribute("currentTheme", settings.getTheme());
+    public String settingsPage(Model model, HttpSession session) {
+
         return "settings"; // Le nom de la page HTML
     }
 
