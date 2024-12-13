@@ -461,8 +461,10 @@ td.song-cell {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 25px;
+    margin-bottom: 6px;
 }
+
 
 .dropdown-content {
     display: none;
