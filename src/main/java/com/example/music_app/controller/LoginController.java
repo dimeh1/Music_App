@@ -50,7 +50,7 @@ public class LoginController {
 		if (email != null && password != null) {
 			
 			//connexion admin
-			if(userRepository.findByEmail(email).isPresent() && userRepository.findByEmail(email).get().getPassword().equals("a")) {
+			if(userRepository.findByEmail(email).isPresent() && password.equals(userRepository.findByEmail(email).get().getPassword())) {
 				session.setAttribute("loggedIn", true);
 				session.setAttribute("user", userRepository.findByEmail(email).get());
 				session.setAttribute("email", userRepository.findByEmail(email).get());
