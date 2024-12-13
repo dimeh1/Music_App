@@ -50,10 +50,10 @@ public class HomeController {
 	    List<Album> albums = albumRepository.findAll();
 	    List<Song> songs = songRepository.findAll();
 
-//	    // Mélanger les listes pour un affichage aléatoire
-//        Collections.shuffle(artists);
-//        Collections.shuffle(albums);
-//        Collections.shuffle(songs);
+	    // Mélanger les listes pour un affichage aléatoire
+        Collections.shuffle(artists);
+        Collections.shuffle(albums);
+        Collections.shuffle(songs);
 //	    
 //	    // Limiter le nombre d'éléments à afficher (par exemple 5)
 //	    List<Artist> limitedArtists = artists.stream().limit(5).collect(Collectors.toList());
