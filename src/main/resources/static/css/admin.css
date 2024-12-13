@@ -210,8 +210,8 @@ header {
     border: 2px solid white;
     margin: auto;
     padding: 0px;
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -263,6 +263,97 @@ header {
 }
 
 .modalartiste-content button {
+    font-size: 15px;
+    margin-top: 40px;
+}
+
+.close {
+    color: white;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ddd;
+}
+
+/*******************************************************************************************************/
+.modalalbum {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    
+}
+
+.modalalbum-content {
+    background-color: black;
+    border: 2px solid white;
+    margin: auto;
+    padding: 0px;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-75%);
+    
+}
+
+.modalalbum-content h2 {
+    font-size: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modalalbum-content form {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modalalbum-content form label {
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.modalalbum-content form input {
+    font-size: 18px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.modalalbum-content form button {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modalalbum-content button {
     font-size: 15px;
     margin-top: 40px;
 }
