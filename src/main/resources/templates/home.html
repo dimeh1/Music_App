@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/player.css">
 </head>
-<body>
+<body th:attr="data-theme=${settings.theme.name()}">
     <header>
         <div class="logo">
             <img src="/img/logo.png">
@@ -15,7 +15,7 @@
             <a href="/" class="home">Accueil</a>
         </div>
         <a href="/settings" class="settings">Paramètres</a>
-        
+
         <!-- Gestion de la connexion / déconnexion -->
         <div class="auth-links" th:if="${session.loggedIn == null || !session.loggedIn}">
             <form action="/signup" method="get">
@@ -36,14 +36,14 @@
 
     <div class="container">
         <div class="sidebar-container">
-            
+
             <div class="head-playlist">
                 <h3>Playlists</h3>
                 <div class="add-playlist" th:if="${session.loggedIn}">
                     <button title="Créer une playlist" onclick="openModal()">+</button>
                 </div>
             </div>
-            
+
 			<!-- Modal d'ajout de Playlist -->
 			<div id="playlistModal" class="modal">
     			<div class="modal-content add-playlist-modal">
@@ -72,20 +72,20 @@
         			</form>
     			</div>
 			</div>
-            
+
             <!-- Liste des playlists -->
 			<nav class="sidebar">
     			<div th:if="${session.loggedIn}">
         			<!-- Vérifie si l'utilisateur a des playlists -->
         			<ul th:if="${playlists != null && !playlists.isEmpty()}">
-    					<li th:each="playlist : ${playlists}" 
+    					<li th:each="playlist : ${playlists}"
         					class="playlist-item"
         					th:attr="onclick=|redirectToPlaylist(${playlist.id})|">
-        					
+
         					<img th:src="@{${playlist.image}}" alt="Image de la playlist" class="playlist-image" th:if="${playlist.id != 1}">
         					<img th:src="@{${playlist.image}}" alt="Image de la playlist" class="playlist-image" th:if="${playlist.id == 1}">
         					<span th:text="${playlist.name}">Playlist</span>
-        					
+
         					<button type="button" class="delete-button" th:if="${playlist.id != 1}" th:onclick="|openDeleteModal(${playlist.id})|">X</button>
     					</li>
 					</ul>
@@ -97,11 +97,11 @@
 			</nav>
 
         </div>
-        
+
         <div class="content-container">
             <main class="main-content">
                 <section class="content-area">
-                    
+
                     <!-- Artists Section -->
                     <h2>Artistes</h2>
                     <div class="artists">
@@ -135,7 +135,7 @@
         </div>
 
     </div>
-    
+
     <footer>
         <!-- Footer content -->
         <div class="music-player">

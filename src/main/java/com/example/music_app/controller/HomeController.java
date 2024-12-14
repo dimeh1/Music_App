@@ -4,15 +4,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.music_app.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.music_app.model.Album;
-import com.example.music_app.model.Artist;
-import com.example.music_app.model.Song;
-import com.example.music_app.model.User;
 import com.example.music_app.repository.AlbumRepository;
 import com.example.music_app.repository.ArtistRepository;
 import com.example.music_app.repository.SongRepository;
@@ -35,10 +32,12 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 	    Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+
+		model.addAttribute("settings", new Settings(Theme.DARK));
 	    if (loggedIn != null && loggedIn) {
 	        User userSession = (User) session.getAttribute("user");
 	        User user = userRepository.findByEmail(userSession.getEmail()).get();
-
+			model.addAttribute("settings", user.getSettings());
 	        model.addAttribute("user", user);
 	        model.addAttribute("playlists", user.getPlaylists());
 	    } else {
@@ -65,7 +64,8 @@ public class HomeController {
 	    model.addAttribute("albums", albums);
 	    model.addAttribute("songs", songs);
 
-	    return "home";
+
+		return "home";
 	}
 
 
