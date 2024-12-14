@@ -243,7 +243,7 @@ public class AdminController {
                 chanson.setTitre(titre);
                 chanson.setImage(imageUrl);
                 chanson.setDuree(duree);
-                chanson.setChemin_audio(uploadDir + fileName);
+                chanson.setChemin_audio("/audio/" + fileName);
                 chanson.setAlbum(album); // Associate the album
 
                 // Step 4: Handle artists

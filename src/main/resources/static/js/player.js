@@ -60,3 +60,19 @@ $(document).ready(function () {
     $(".start-time").text(formatTime(elapsedTime));  // Start time is 0:00 initially
     updateProgressBar();  // Initialize the progress bar at 0%
 });
+
+const audio = document.getElementById('audio');
+
+function playSong(songPath) {
+    const audio = document.getElementById('audioPlayer');
+
+    // Play the audio
+    function playAudio() {
+        audio.play();
+    }
+
+    // Pause the audio
+    function pauseAudio() {
+        audio.pause();
+    }
+}

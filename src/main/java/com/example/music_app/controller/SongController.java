@@ -41,6 +41,7 @@ public class SongController {
 	            model.addAttribute("song", song);
 	            model.addAttribute("artists", song.getArtists());
 	            model.addAttribute("album", song.getAlbum().getNom());
+				model.addAttribute("chemin_audio", song.getChemin_audio());
 	            return "song";
 	        } else {
 	            model.addAttribute("error", "Musique introuvable ou non autorisée.");

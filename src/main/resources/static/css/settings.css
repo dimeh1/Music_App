@@ -4,19 +4,129 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: #ffffff;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+/*  Thème sombre (DARK) */
+body[data-theme="DARK"] {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body[data-theme="DARK"] header {
+    background-color: #000000;
+}
+
+body[data-theme="DARK"] .recherche input[type="text"] {
+    background-color: #282828;
+    color: #ffffff;
+}
+
+body[data-theme="DARK"] .auth-links button {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+body[data-theme="DARK"] .container,
+body[data-theme="DARK"] .sidebar-container {
+    background-color: #101011;
+    color: #ffffff;
+}
+
+body[data-theme="DARK"] .modal-content {
+    background-color: #000000;
+    border: 2px solid #ffffff;
+}
+
+body[data-theme="DARK"] .content-container {
+    background-color: #101011;
+}
+
+body[data-theme="DARK"] .grid-item {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+body[data-theme="DARK"] .btn-save {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+body[data-theme="DARK"] footer {
+    background-color: #181818;
+    color: #ffffff;
+}
+
+/* Thème clair (LIGHT) */
+body[data-theme="LIGHT"] {
+    background-color: #f9f9f9;
+    color: #000000;
+}
+
+body[data-theme="LIGHT"] header {
+    background-color: #f1f1f1;
+}
+
+body[data-theme="LIGHT"] .recherche input[type="text"] {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body[data-theme="LIGHT"] .recherche a{
+    color: black;
+}
+
+body[data-theme="DARK"] .recherche a{
+    color: white;
+}
+
+body[data-theme="LIGHT"] .auth-links button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+body[data-theme="LIGHT"] .container,
+body[data-theme="LIGHT"] .sidebar-container {
+    background-color: #e6e6e6;
+    color: #000000;
+}
+
+body[data-theme="LIGHT"] .modal-content {
+    background-color: #f9f9f9;
+    border: 2px solid #000000;
+}
+
+body[data-theme="LIGHT"] .content-container {
+    background-color: #ffffff;
+}
+
+body[data-theme="LIGHT"] .grid-item {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body[data-theme="LIGHT"] .btn-save {
+    background-color: #f9f9f9;
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+body[data-theme="LIGHT"] footer {
+    background-color: #f1f1f1;
+    color: #000000;
+}
+
+/* Styles globaux communs */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: black;
 }
 
 .logo img {
@@ -29,26 +139,11 @@ header {
     font-size: 20px;
 }
 
-.recherche a {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 15px;
-}
-
 .recherche input[type="text"] {
     padding: 5px;
     border-radius: 5px;
     border: none;
-    background-color: #282828;
-    color: white;
-    font-size: 20px;
     width: 500px;
-}
-
-.settings {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 15px;
 }
 
 .auth-links {
@@ -59,10 +154,7 @@ header {
 .auth-links button {
     font-size: 20px;
     padding: 10px 15px;
-    background-color: black;
-    color: white;
     border-radius: 10px;
-    border: 2px solid white;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
@@ -74,37 +166,20 @@ header {
 .container {
     display: flex;
     flex: 1;
-    background-color: black;
     gap: 10px;
     padding: 10px;
 }
 
 .sidebar-container {
     width: 350px;
-    background-color: #101011;
     padding: 20px;
-    color: white;
     border-radius: 10px;
 }
 
 .sidebar {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
-.head-playlist {
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-}
-
-.head-playlist h3 {
-    margin: 0px;
-    font-size: 30px;
-}
-
-/*Petite fenêtre dynamique avec JS*/
 .modal {
     display: none;
     position: fixed;
@@ -117,8 +192,6 @@ header {
 }
 
 .modal-content {
-    background-color: black;
-    border: 2px solid white;
     margin: auto;
     padding: 0px;
     width: 300px;
@@ -128,58 +201,9 @@ header {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.modal-content h2 {
-    font-size: 30px;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-.modal-content form {
-    margin: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 10px;
-}
-
-.modal-content form label {
-    font-size: 18px;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-.modal-content form input {
-    font-size: 18px;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-    margin-bottom: 30px;
-    width: 80%;
-}
-
-.modal-content form button {
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.modal-content button {
-    font-size: 15px;
-    margin-top: 40px;
 }
 
 .close {
-    color: white;
     position: absolute;
     right: 15px;
     top: 15px;
@@ -188,198 +212,19 @@ header {
     cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-    color: #ddd;
-}
-
-.modal-content.delete-playlist-modal {
-    width: 400px;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-actions {
-    display: flex;
-    gap: 20px;
-}
-
-.confirm-btn, .cancel-btn {
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    margin-top: 10px;
-    padding: 5px 15px;
-    cursor: pointer;
-}
-
-.confirm-btn:hover {
-    background-color: #555;
-    transform: scale(1.1);
-}
-
-.cancel-btn:hover {
-    background-color: #555;
-    transform: scale(1.1);
-}
-
-/*############################################*/
-
-.add-playlist button{
-    font-size: 35px;
-    border-radius: 20px;
-    padding: 0px 6px;
-    margin-bottom: 3px;
-    background-color: #101011;
-    border: none;
-    color: white;
-}
-
-.add-playlist button:hover {
-    transform: scale(1.1);
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-    border: 1px solid white;
-    padding: 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-}
-
-.sidebar li:hover {
-    background-color: rgba(240, 240, 240, 0.3);
-}
-
-.sidebar .delete-button {
-    font-weight: bold;
-    padding: 0;
-    display: none;
-    border: none;
-    background-color: transparent;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.sidebar li:hover .delete-button {
-    display: block;
-}
-
-
-.sidebar .delete-button:hover {
-    color: red;
-}
-
-.delete-form {
-    margin: 0;
-    padding: 0;
-}
-
-.content-container {
+.container .content-container {
     flex: 1;
     padding: 20px;
-    background-color: #101011;
     border-radius: 10px;
-    overflow-y: auto; /* Permet le défilement vertical uniquement dans ce conteneur */
-    max-height: 80vh; /* Définit une hauteur maximale pour activer le défilement */
+    overflow-y: auto;
+    max-height: 80vh;
 }
-
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* Grille flexible pour les artistes, albums et chansons */
-.artists, .albums, .songs {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: nowrap;  /* Les éléments seront alignés sur une ligne */
-    overflow-x: auto;   /* Permet un défilement horizontal si nécessaire */
-    gap: 20px; /* Espacement entre les éléments */
-}
-
-/* Chaque élément (artist, album, song) sera un carré */
-.grid-item {
-    flex-shrink: 0; /* Empêche la réduction de taille des éléments */
-    width: 200px;   /* Largeur fixe pour chaque élément */
-    height: 250px;  /* Hauteur ajustée pour laisser de l'espace sous l'image */
-    text-align: center;
-    background-color: #1f1f1f;
-    padding: 15px;
-    border-radius: 10px;
-    color: #fff;
-    overflow: hidden; /* Pour éviter que l'image dépasse du bloc */
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Organise le contenu en colonne */
-    justify-content: space-between; /* Espace entre l'image et le texte */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-}
-
-/* Ajustements spécifiques aux images des artistes et albums */
-.artist-image, .album-image {
-    width: 100%;
-    height: 150px; /* Fixe la hauteur de l'image */
-    object-fit: cover; /* Remplir le carré sans distorsion */
-    border-radius: 10px;
-}
-
-/* Texte pour les artistes, albums et chansons */
-.grid-item span {
-    font-size: 1.2rem;
-    font-weight: normal;
-    color: #fff;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* Responsivité : s'assurer que l'affichage reste propre sur mobile */
-@media (max-width: 768px) {
-    .artists, .albums, .songs {
-        flex-direction: column; /* Les éléments passent en colonne sur mobile */
-        align-items: center;
-    }
-
-    .grid-item {
-        width: 80%; /* Plus large sur mobile */
-        height: 250px; /* Ajuster la taille sur mobile */
-        margin-bottom: 20px; /* Espacement vertical entre les éléments */
-    }
-}
-
-
 
 footer {
-    background-color: #181818;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ffffff;
 }
 
 .current-song {
@@ -388,17 +233,13 @@ footer {
 }
 
 .controls button {
-    background-color: #1DB954;
-    border: none;
-    color: white;
     padding: 10px;
-    margin: 0 5px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .controls button:hover {
-    background-color: #1aa34a;
+    transform: scale(1.05);
 }
 
 .theme-selector {
