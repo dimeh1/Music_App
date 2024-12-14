@@ -32,29 +32,29 @@ public class SettingsController {
      */
     @GetMapping("/settings")
     public String settingsPage(Model model, HttpSession session) {
+        // Récupération de l'utilisateur
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
         if (loggedIn == null || !loggedIn) {
             return "redirect:/login";
         }
 
-        // Récupérer l'utilisateur depuis la session
+        // Récupération de l'utilisateur depuis la session
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
             return "redirect:/login";
         }
 
-        // Ajouter l'utilisateur au modèle pour qu'il soit disponible dans la vue
+        // Ajouter l'utilisateur au modèle
         model.addAttribute("user", user);
 
-        // Récupérer les paramètres de l'utilisateur
+        // Ajouter les paramètres au modèle
         Settings settings = user.getSettings();
-
-        // Ajouter les paramètres au modèle pour afficher le thème
         model.addAttribute("settings", settings);
 
-        return "settings"; // Affiche la page settings.html
+        return "settings"; // Affiche la vue settings.html
     }
+
 
     @PostMapping("/settings")
     public String changeTheme(@RequestParam("theme") String theme, HttpSession session) {
