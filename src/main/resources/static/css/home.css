@@ -272,7 +272,7 @@ header {
     border-radius: 20px;
     padding: 0px 6px;
     margin-bottom: 3px;
-    background-color: #101011;
+    background-color: #1c1c1c;
     border: none;
     color: white;
 }
@@ -360,22 +360,6 @@ header {
     display: inline-block;
     margin-right: 16px; /* espace entre les éléments */
 }
-.arrow-left, .arrow-right {
-    cursor: pointer;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.arrow-left {
-    left: 0;
-}
-.arrow-right {
-    right: 0;
-}
-
 
 h2 {
     font-size: 1.8rem;
@@ -448,12 +432,18 @@ h2 {
 
 
 /* Ajustements spécifiques aux images des artistes et albums */
-.artist-image, .album-image, .song-image {
-    width: 200px;
-    height: 200px; /* Fixe la hauteur de l'image */
-    object-fit: cover; /* Remplir le carré sans distorsion */
-    border-radius: 10px;
+.artists, .albums, .songs {
+    margin-top: 15px;
+    display: grid; /* Utilisation d'une grille */
+    grid-template-columns: repeat(5, 1fr); /* 5 colonnes de taille égale */
+    gap: 20px; /* Espacement entre les éléments */
+    overflow-y: auto; /* Permet un défilement vertical */
+    max-height: 80vh; /* Limite la hauteur totale et active le défilement si nécessaire */
+    padding-right: 10px; /* Ajoute de l'espace pour la scrollbar */
 }
+
+
+
 
 .grid-item span {
     font-size: 1.2rem;

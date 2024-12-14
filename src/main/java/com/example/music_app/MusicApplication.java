@@ -10,11 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.music_app.model.Album;
 import com.example.music_app.model.Artist;
+import com.example.music_app.model.Playlist;
+import com.example.music_app.model.Settings;
 import com.example.music_app.model.Song;
 import com.example.music_app.model.Status;
+import com.example.music_app.model.Theme;
 import com.example.music_app.model.User;
 import com.example.music_app.repository.AlbumRepository;
 import com.example.music_app.repository.ArtistRepository;
+import com.example.music_app.repository.PlaylistRepository;
+import com.example.music_app.repository.SettingsRepository;
 import com.example.music_app.repository.SongRepository;
 import com.example.music_app.repository.UserRepository;
 
@@ -32,6 +37,11 @@ public class MusicApplication implements ApplicationRunner{
 	SongRepository songRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	SettingsRepository settingsRepository;
+	@Autowired
+	PlaylistRepository playlistRepository;
+	
 	@Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -42,7 +52,20 @@ public class MusicApplication implements ApplicationRunner{
 		admin1.setPassword("a");
 		admin1.setStatus(Status.ADMIN);
 		
+		Settings settings = new Settings();
+		settings.setTheme(Theme.DARK);
+		admin1.setSettings(settings);
+
+
+		Playlist like = new Playlist();
+		like.setName("Like");
+		like.setUser(admin1);
+		like.setImage("/img/like.jpg");
+		admin1.getPlaylists().add(like);
+		
+		settingsRepository.save(settings);
 		userRepository.save(admin1);
+		playlistRepository.save(like);
 		
 		
         // Ajouter des artistes
@@ -235,9 +258,74 @@ public class MusicApplication implements ApplicationRunner{
         songLikeaToo.setAlbum(albumSade);
         songLikeaToo.setArtists(Arrays.asList(sade));
         songLikeaToo.setGenre(com.example.music_app.model.Genre.JAZZ);
+        
+        Song songAutreMonde = new Song();
+        songAutreMonde.setTitre("Autre monde");
+        songAutreMonde.setImage("/img/albums/deux_freres_PNL.JPG");
+        songAutreMonde.setDuree(200);
+        songAutreMonde.setAlbum(albumPnl);
+        songAutreMonde.setArtists(Arrays.asList(pnl));
+        songAutreMonde.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songWindowShopper = new Song();
+        songWindowShopper.setTitre("WINDOW SHOPPER PART.1");
+        songWindowShopper.setImage("/img/albums/l_etrange_histoire_Laylow.JPG");
+        songWindowShopper.setDuree(200);
+        songWindowShopper.setAlbum(albumLaylow);
+        songWindowShopper.setArtists(Arrays.asList(laylow));
+        songWindowShopper.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songMosaique = new Song();
+        songMosaique.setTitre("Mosaïque solitaire");
+        songMosaique.setImage("/img/albums/ipseite_Damso.JPG");
+        songMosaique.setDuree(200);
+        songMosaique.setAlbum(albumDamso);
+        songMosaique.setArtists(Arrays.asList(damso));
+        songMosaique.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songOneDance = new Song();
+        songOneDance.setTitre("One dance");
+        songOneDance.setImage("/img/albums/views_Drake.JPG");
+        songOneDance.setDuree(200);
+        songOneDance.setAlbum(albumDrake);
+        songOneDance.setArtists(Arrays.asList(drake));
+        songOneDance.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songAfter= new Song();
+        songAfter.setTitre("After Hours Blinding Lights In Your");
+        songAfter.setImage("/img/albums/after_hours_TheWeekend.JPG");
+        songAfter.setDuree(200);
+        songAfter.setAlbum(albumTheweekend);
+        songAfter.setArtists(Arrays.asList(theweekend));
+        songAfter.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songIfA = new Song();
+        songIfA.setTitre("If i ain't got you");
+        songIfA.setImage("/img/albums/the_diary_of_alicia_keys_AliciaKeys.JPG");
+        songIfA.setDuree(200);
+        songIfA.setAlbum(albumAliciaKeys);
+        songIfA.setArtists(Arrays.asList(aliciaKeys));
+        songIfA.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songYouKnow = new Song();
+        songYouKnow.setTitre("You know I'm no good");
+        songYouKnow.setImage("/img/albums/back_to_black_AmyWinehouse.JPG");
+        songYouKnow.setDuree(200);
+        songYouKnow.setAlbum(albumAmyW);
+        songYouKnow.setArtists(Arrays.asList(amyW));
+        songYouKnow.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songRolling = new Song();
+        songRolling.setTitre("Rolling in the Deep Set fire to the rain");
+        songRolling.setImage("/img/albums/21_Adele.JPG");
+        songRolling.setDuree(200);
+        songRolling.setAlbum(albumAdele);
+        songRolling.setArtists(Arrays.asList(adele));
+        songRolling.setGenre(com.example.music_app.model.Genre.JAZZ);
+        Song songSmooth = new Song();
+        songSmooth.setTitre("Smooth Operator");
+        songSmooth.setImage("/img/albums/the_best_of_sade_Sade.JPG");
+        songSmooth.setDuree(200);
+        songSmooth.setAlbum(albumSade);
+        songSmooth.setArtists(Arrays.asList(sade));
+        songSmooth.setGenre(com.example.music_app.model.Genre.JAZZ);
 
         songRepository.saveAll(Arrays.asList(songRyuk, songUneHistoire, songE_Signaler, songTooGood, songTakiTaki,
-        		songSouvenir, songStay, songEyes, songFallin, songRehab, songSomeoneLike, songLikeaToo));
+        		songSouvenir, songStay, songEyes, songFallin, songRehab, songSomeoneLike, songLikeaToo, songAutreMonde, 
+        		songWindowShopper, songMosaique, songOneDance, songAfter,songIfA, songYouKnow, songRolling, songSmooth));
     }
 	
 	
